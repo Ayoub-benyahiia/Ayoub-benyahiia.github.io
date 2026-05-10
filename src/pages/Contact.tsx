@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Mail,
   MapPin,
   Send,
   CheckCircle2,
   Briefcase,
   Globe,
 } from "lucide-react";
+import { useForm, ValidationError } from "@formspree/react";
 import { Layout } from "@/components/Layout";
 import { useProfile } from "@/hooks/queries/useProfile";
 import { SEO } from "@/components/SEO";
@@ -42,8 +42,8 @@ interface FormState {
   name: string;
   email: string;
   company: string;
-  projectType: string;
-  budgetRange: string;
+  project_type: string;
+  budget: string;
   message: string;
 }
 
@@ -51,20 +51,26 @@ const INITIAL_FORM: FormState = {
   name: "",
   email: "",
   company: "",
-  projectType: "",
-  budgetRange: "",
+  project_type: "",
+  budget: "",
   message: "",
 };
 
 const Contact = () => {
   const { data: profile } = useProfile();
-  const profileEmail = profile?.email ?? "";
+  const [state, submitForm, resetForm] = useForm<FormState>("xojrpwnl");
   const description =
     "Contact Ayoub Ben Yahia to hire a Data Analyst & Marketing Analytics Specialist for freelance projects, remote data analyst roles, or on-site opportunities in Morocco.";
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<FormState>>({});
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setForm(INITIAL_FORM);
+      setErrors({});
+    }
+  }, [state.succeeded]);
 
   const validate = (): boolean => {
     const newErrors: Partial<FormState> = {};
@@ -74,7 +80,7 @@ const Contact = () => {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = "Please enter a valid email.";
     }
-    if (!form.projectType) newErrors.projectType = "Please select a project type.";
+    if (!form.project_type) newErrors.project_type = "Please select a project type.";
     if (!form.message.trim()) newErrors.message = "Message is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,13 +96,15 @@ const Contact = () => {
     if (errors[name as keyof FormState]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
+    if (state.succeeded) {
+      resetForm();
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
-    setSubmitted(true);
-    setForm(INITIAL_FORM);
+    await submitForm(form);
   };
 
   return (
@@ -163,7 +171,7 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <AnimatePresence mode="wait">
-              {submitted ? (
+              {state.succeeded ? (
                 /* Success state */
                 <motion.div
                   key="success"
@@ -177,24 +185,13 @@ const Contact = () => {
                     <CheckCircle2 className="h-8 w-8 text-accent" />
                   </span>
                   <div>
-                    <h2 className="text-xl font-semibold">Message ready!</h2>
+                    <h2 className="text-xl font-semibold">Message sent!</h2>
                     <p className="mt-2 text-muted-foreground">
-                      Thanks! Your message is ready. Please send it by email for
-                      now.
+                      Thanks! Your message has been sent. I&rsquo;ll get back to you soon.
                     </p>
                   </div>
-                  {profileEmail && (
-                    <a
-                      href={`mailto:${profileEmail}`}
-                      id="contact-email-btn-success"
-                      className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
-                    >
-                      <Mail className="h-4 w-4" />
-                      Email Me at {profileEmail}
-                    </a>
-                  )}
                   <button
-                    onClick={() => setSubmitted(false)}
+                    onClick={resetForm}
                     className="text-sm text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
                   >
                     Send another message
@@ -260,6 +257,11 @@ const Contact = () => {
                       {errors.email && (
                         <span className="text-xs text-red-500">{errors.email}</span>
                       )}
+                      <ValidationError
+                        field="email"
+                        errors={state.errors}
+                        className="text-xs text-red-500"
+                      />
                     </div>
 
                     {/* Company */}
@@ -292,11 +294,11 @@ const Contact = () => {
                       </label>
                       <select
                         id="contact-project-type"
-                        name="projectType"
-                        value={form.projectType}
+                        name="project_type"
+                        value={form.project_type}
                         onChange={handleChange}
                         className={`rounded-xl border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 ${
-                          errors.projectType ? "border-red-500" : "border-border"
+                          errors.project_type ? "border-red-500" : "border-border"
                         }`}
                       >
                         <option value="">Select a type…</option>
@@ -306,9 +308,9 @@ const Contact = () => {
                           </option>
                         ))}
                       </select>
-                      {errors.projectType && (
+                      {errors.project_type && (
                         <span className="text-xs text-red-500">
-                          {errors.projectType}
+                          {errors.project_type}
                         </span>
                       )}
                     </div>
@@ -328,10 +330,10 @@ const Contact = () => {
                             type="button"
                             id={`contact-budget-${b.toLowerCase().replace(/[\s/]+/g, "-")}`}
                             onClick={() =>
-                              setForm((prev) => ({ ...prev, budgetRange: b }))
+                              setForm((prev) => ({ ...prev, budget: b }))
                             }
                             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
-                              form.budgetRange === b
+                              form.budget === b
                                 ? "border-accent bg-accent/10 text-accent"
                                 : "border-border text-muted-foreground hover:border-accent/50 hover:text-foreground"
                             }`}
@@ -339,6 +341,7 @@ const Contact = () => {
                             {b}
                           </button>
                         ))}
+                        <input type="hidden" name="budget" value={form.budget} />
                       </div>
                     </div>
 
@@ -364,32 +367,31 @@ const Contact = () => {
                       {errors.message && (
                         <span className="text-xs text-red-500">{errors.message}</span>
                       )}
+                      <ValidationError
+                        field="message"
+                        errors={state.errors}
+                        className="text-xs text-red-500"
+                      />
                     </div>
                   </div>
+
+                  {state.errors && (
+                    <p className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-500">
+                      Something went wrong while sending your message. Please
+                      check the form and try again.
+                    </p>
+                  )}
 
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <button
                       id="contact-submit-btn"
                       type="submit"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
+                      disabled={state.submitting}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
                     >
                       <Send className="h-4 w-4" />
-                      Send Message
+                      {state.submitting ? "Sending..." : "Send Message"}
                     </button>
-
-                    {profileEmail && (
-                      <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                        Prefer email?{" "}
-                        <a
-                          id="contact-email-btn"
-                          href={`mailto:${profileEmail}`}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent hover:text-accent"
-                        >
-                          <Mail className="h-3.5 w-3.5" />
-                          Email Me
-                        </a>
-                      </span>
-                    )}
                   </div>
                 </motion.form>
               )}
@@ -434,7 +436,7 @@ const Contact = () => {
             </motion.div>
 
             {/* Location card */}
-            {(profile?.location || profile?.email) && (
+            {profile?.location && (
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -448,17 +450,6 @@ const Contact = () => {
                   <h2 className="text-sm font-semibold">Contact info</h2>
                 </div>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                  {profile?.email && (
-                    <li className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 shrink-0 text-accent" />
-                      <a
-                        href={`mailto:${profile.email}`}
-                        className="transition hover:text-accent"
-                      >
-                        {profile.email}
-                      </a>
-                    </li>
-                  )}
                   {profile?.location && (
                     <li className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 shrink-0 text-accent" />

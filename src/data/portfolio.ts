@@ -15,7 +15,7 @@ export const PROFILE = {
     "I combine analytics and marketing strategy to help businesses grow faster, smarter, and with measurable results.",
   bio: "I am a Data Analyst and Marketing Expert focused on turning raw data into profitable decisions. I help brands, consultants, and companies scale through dashboards, customer insights, growth systems, performance marketing, and personal branding strategies.",
   location: "Rabat, Morocco",
-  email: "ayoubbenyahia@gmail.com",
+  email: "",
   phone: "+212 770 854 534",
 } as const;
 
@@ -35,7 +35,6 @@ export const VALUE_PROPS = [
 ];
 
 export const PRIMARY_SOCIALS: SocialLink[] = [
-  { label: "Email", href: `mailto:${PROFILE.email}`, icon: "mail" },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/ayoub-ben-yahia-data/",

@@ -53,7 +53,8 @@ export const Footer = () => {
   const { data: profile } = useProfile();
   const { data: socialLinks } = useSocialLinks();
 
-  const email = profile?.email ?? "";
+  const publicSocialLinks =
+    socialLinks?.filter((social) => !social.href.startsWith("mailto:")) ?? [];
 
   if (!profile) return null;
 
@@ -181,17 +182,6 @@ export const Footer = () => {
               Contact
             </h3>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {email && (
-                <li className="flex items-center gap-2">
-                  <Mail size={14} className="shrink-0 text-accent" />
-                  <a
-                    href={`mailto:${email}`}
-                    className="break-all transition hover:text-accent"
-                  >
-                    {email}
-                  </a>
-                </li>
-              )}
               {profile.phone && (
                 <li className="flex items-center gap-2">
                   <Phone size={14} className="shrink-0 text-accent" />
@@ -219,7 +209,7 @@ export const Footer = () => {
             </h3>
 
             <div className="mt-4 flex flex-wrap gap-3">
-              {socialLinks?.map((social) => {
+              {publicSocialLinks.map((social) => {
                 const Icon = ICON_MAP[social.icon] ?? Mail;
                 return (
                   <a
@@ -246,16 +236,6 @@ export const Footer = () => {
                 Work With Me
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
-              {email && (
-                <a
-                  href={`mailto:${email}`}
-                  id="footer-cta-email"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent hover:text-accent"
-                >
-                  <Mail className="h-3.5 w-3.5" />
-                  Email Me Directly
-                </a>
-              )}
             </div>
           </motion.div>
         </div>
