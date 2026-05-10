@@ -103,13 +103,13 @@ const Education = () => {
               to="/projects"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              See skills in projects
+              View Projects
             </Link>
             <Link
               to="/contact"
               className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
             >
-              Work with Ayoub
+              Work With Me
             </Link>
           </div>
         </motion.header>

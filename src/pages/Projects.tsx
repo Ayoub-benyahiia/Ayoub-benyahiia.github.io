@@ -227,6 +227,9 @@ const Projects = () => {
                             alt={`Screenshot of ${project.name}`}
                             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
+                            width={640}
+                            height={360}
                           />
                         ) : (
                           <>
@@ -336,7 +339,7 @@ const Projects = () => {
             Have a similar challenge?
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Let&apos;s solve it together.
+            Have a similar data problem?
           </h2>
           <p className="mt-3 text-muted-foreground">
             Every project here started with a business problem. Tell me yours

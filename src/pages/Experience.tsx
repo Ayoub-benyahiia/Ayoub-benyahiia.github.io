@@ -75,13 +75,13 @@ const Experience = () => {
               to="/projects"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              View related projects
+              View Projects
             </Link>
             <Link
               to="/contact"
               className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
             >
-              Discuss a role or project
+              Work With Me
             </Link>
           </div>
         </motion.header>

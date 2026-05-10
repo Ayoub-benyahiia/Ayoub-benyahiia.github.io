@@ -311,7 +311,7 @@ const Services = () => {
             Not sure what you need?
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Let&apos;s talk about your project.
+            Need a dashboard, report, or analytics setup?
           </h2>
           <p className="mt-3 text-muted-foreground">
             I can help you figure out the right approach — whether it&apos;s a

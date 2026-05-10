@@ -70,15 +70,6 @@ const Contact = () => {
     }
   }, [state.succeeded]);
 
-  useEffect(() => {
-    console.info("[Contact/Formspree] state", {
-      submitting: state.submitting,
-      succeeded: state.succeeded,
-      result: state.result,
-    });
-    console.info("[Contact/Formspree] errors", state.errors);
-  }, [state.errors, state.result, state.submitting, state.succeeded]);
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -130,18 +121,22 @@ const Contact = () => {
             analytics needs. Use this page to hire Ayoub for freelance data
             analytics work, remote roles, or on-site opportunities in Morocco.
           </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Tell me what you&apos;re trying to measure or improve. I&apos;ll
+            review your request and get back to you with a practical next step.
+          </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               to="/services"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              Review services
+              View Services
             </Link>
             <Link
               to="/projects"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              See project examples
+              View Projects
             </Link>
           </div>
         </motion.header>
@@ -187,9 +182,6 @@ const Contact = () => {
                   key="form"
                   action="https://formspree.io/f/xojrpwnl"
                   method="POST"
-                  onSubmitCapture={() => {
-                    console.info("[Contact/Formspree] submit fired");
-                  }}
                   onSubmit={handleSubmit}
                   className="rounded-3xl border border-border bg-surface p-6 sm:p-8"
                 >

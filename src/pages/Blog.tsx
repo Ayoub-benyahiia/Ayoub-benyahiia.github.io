@@ -64,22 +64,22 @@ const Insights = () => {
     return (
       <Layout>
       <SEO
-        title="Insights \u2014 Data Analytics Guides & Use Cases"
+        title="Data Analytics Insights, Dashboard Guides & Marketing Analytics"
         description={description}
         canonical={canonical}
         structuredData={[
           createBlogSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
           createCollectionPageSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
           createWebPageSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
@@ -111,22 +111,22 @@ const Insights = () => {
   return (
     <Layout>
       <SEO
-        title="Insights \u2014 Data Analytics Guides & Use Cases"
+        title="Data Analytics Insights, Dashboard Guides & Marketing Analytics"
         description={description}
         canonical={canonical}
         structuredData={[
           createBlogSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
           createCollectionPageSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
           createWebPageSchema({
-            title: "Insights - Data Analytics Guides & Use Cases",
+            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
             description,
             path: "/insights",
           }),
@@ -150,28 +150,28 @@ const Insights = () => {
             Guides, use cases &amp; data insights.
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Practical guides, real-world use cases, data analytics lessons, and
-            marketing analytics ideas written to help teams make better
-            decisions with their data.
+            Practical guides and use cases around dashboards, analytics,
+            reporting, KPI tracking, and marketing performance, written to help
+            teams make better decisions with their data.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               to="/services"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              Explore services
+              View Services
             </Link>
             <Link
               to="/projects"
               className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
-              View projects
+              View Projects
             </Link>
             <Link
               to="/contact"
               className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
             >
-              Work with Ayoub
+              Work With Me
             </Link>
           </div>
         </motion.header>
@@ -264,6 +264,9 @@ const Insights = () => {
                         alt={`Cover image for ${post.title}`}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={360}
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center">
@@ -321,6 +324,41 @@ const Insights = () => {
             ))}
           </div>
         )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mx-auto mt-20 max-w-2xl rounded-3xl border border-border bg-surface p-8 text-center sm:p-12"
+        >
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">
+            Apply the ideas
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+            Need help applying these ideas to your business?
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Turn an insight into a dashboard, report, or marketing analytics
+            workflow built around your real business questions.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
+            >
+              Work With Me
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/services"
+              className="group inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+            >
+              View Services
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </Layout>
   );

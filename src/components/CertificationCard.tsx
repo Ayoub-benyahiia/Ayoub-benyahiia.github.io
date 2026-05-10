@@ -28,6 +28,9 @@ export const CertificationCard = ({ certificate }: CertificationCardProps) => {
             alt={`${certificate.name} certificate from ${certificate.provider}`}
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
             loading="lazy"
+            decoding="async"
+            width={384}
+            height={160}
           />
         </div>
       ) : (

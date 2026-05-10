@@ -157,6 +157,15 @@ export const Hero = () => {
               </Link>
             </motion.div>
 
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.34 }}
+              className="max-w-xl text-sm leading-relaxed text-muted-foreground"
+            >
+              Available for freelance projects, remote roles, and on-site opportunities in Morocco.
+            </motion.p>
+
             {/* Social links */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -197,6 +206,9 @@ export const Hero = () => {
                   alt={`${fullName} — portrait`}
                   className="h-full w-full object-cover"
                   loading="eager"
+                  decoding="async"
+                  width={640}
+                  height={640}
                 />
                 {/* Decorative corner badge */}
                 <div className="absolute bottom-4 left-4 rounded-2xl border border-border bg-background/80 px-3 py-2 backdrop-blur-md">

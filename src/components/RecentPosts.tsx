@@ -86,7 +86,7 @@ export const RecentPosts = () => {
             to="/insights"
             className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
           >
-            View all insights
+            Read Insights
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </motion.div>
@@ -121,6 +121,9 @@ export const RecentPosts = () => {
                     alt={`Cover image for ${post.title}`}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
+                    width={640}
+                    height={360}
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center">

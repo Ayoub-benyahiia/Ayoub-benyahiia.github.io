@@ -1,3 +1,4 @@
+import { useMemo, type ReactNode } from "react";
 import { useParams, Navigate, Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
@@ -6,6 +7,7 @@ import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Layout } from "@/components/Layout";
+import { ArticleCTA } from "@/components/ArticleCTA";
 import { useBlogPost } from "@/hooks/queries/useBlogPosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +18,37 @@ import {
   createBreadcrumbSchema,
   createWebPageSchema,
 } from "@/lib/schema";
+
+const headingText = (children: ReactNode): string => {
+  if (typeof children === "string" || typeof children === "number") {
+    return String(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(headingText).join("");
+  }
+
+  return "";
+};
+
+const slugifyHeading = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+const extractHeadings = (content?: string | null) =>
+  (content ?? "")
+    .split("\n")
+    .map((line) => line.match(/^(#{2,3})\s+(.+)$/))
+    .filter((match): match is RegExpMatchArray => Boolean(match))
+    .map((match) => ({
+      level: match[1].length,
+      text: match[2].replace(/[*_`]/g, "").trim(),
+      id: slugifyHeading(match[2].replace(/[*_`]/g, "").trim()),
+    }))
+    .filter((heading) => heading.text.length > 0);
 
 const InsightsPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -61,6 +94,7 @@ const InsightsPost = () => {
   const description =
     post.excerpt ??
     `Read the full insight: ${post.title}. Data analytics, dashboards, and business intelligence explained clearly.`;
+  const tableOfContents = useMemo(() => extractHeadings(post.content), [post.content]);
 
   return (
     <Layout>
@@ -146,6 +180,12 @@ const InsightsPost = () => {
                 ))}
               </div>
             )}
+
+            {post.excerpt && (
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                {post.excerpt}
+              </p>
+            )}
           </motion.header>
 
           {/* Cover image */}
@@ -161,8 +201,37 @@ const InsightsPost = () => {
                 alt={`Cover image for ${post.title}`}
                 className="w-full object-cover"
                 loading="eager"
+                decoding="async"
+                width={960}
+                height={480}
               />
             </motion.div>
+          )}
+
+          {tableOfContents.length > 0 && (
+            <nav
+              className="mt-8 rounded-2xl border border-border bg-surface p-5"
+              aria-label="Table of contents"
+            >
+              <p className="font-mono text-xs uppercase tracking-widest text-accent">
+                In this insight
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                {tableOfContents.map((heading) => (
+                  <li
+                    key={heading.id}
+                    className={heading.level === 3 ? "pl-4" : undefined}
+                  >
+                    <a
+                      href={`#${heading.id}`}
+                      className="transition hover:text-accent"
+                    >
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           )}
 
           {/* Markdown content */}
@@ -175,6 +244,18 @@ const InsightsPost = () => {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
+              components={{
+                h2: ({ children, ...props }) => (
+                  <h2 id={slugifyHeading(headingText(children))} {...props}>
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children, ...props }) => (
+                  <h3 id={slugifyHeading(headingText(children))} {...props}>
+                    {children}
+                  </h3>
+                ),
+              }}
             >
               {post.content}
             </ReactMarkdown>
@@ -185,8 +266,31 @@ const InsightsPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-16 border-t border-border pt-8"
+            className="mt-16 space-y-8 border-t border-border pt-8"
           >
+            <ArticleCTA />
+
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Link
+                to="/services"
+                className="rounded-full border border-border bg-surface px-4 py-2 text-muted-foreground transition hover:border-accent hover:text-accent"
+              >
+                View Services
+              </Link>
+              <Link
+                to="/projects"
+                className="rounded-full border border-border bg-surface px-4 py-2 text-muted-foreground transition hover:border-accent hover:text-accent"
+              >
+                View Projects
+              </Link>
+              <Link
+                to="/contact"
+                className="rounded-full border border-border bg-surface px-4 py-2 text-muted-foreground transition hover:border-accent hover:text-accent"
+              >
+                Work With Me
+              </Link>
+            </div>
+
             <Link
               to="/insights"
               className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent hover:text-accent"

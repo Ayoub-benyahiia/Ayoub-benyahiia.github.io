@@ -77,7 +77,7 @@ export const Footer = () => {
               id="footer-cta-start-project"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
             >
-              Start a Project
+              Work With Me
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
