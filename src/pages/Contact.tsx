@@ -58,33 +58,17 @@ const INITIAL_FORM: FormState = {
 
 const Contact = () => {
   const { data: profile } = useProfile();
-  const [state, submitForm, resetForm] = useForm<FormState>("xojrpwnl");
+  const [state, handleSubmit, resetForm] = useForm("xojrpwnl");
   const description =
     "Contact Ayoub Ben Yahia to hire a Data Analyst & Marketing Analytics Specialist for freelance projects, remote data analyst roles, or on-site opportunities in Morocco.";
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [errors, setErrors] = useState<Partial<FormState>>({});
 
   useEffect(() => {
     if (state.succeeded) {
       setForm(INITIAL_FORM);
-      setErrors({});
     }
   }, [state.succeeded]);
-
-  const validate = (): boolean => {
-    const newErrors: Partial<FormState> = {};
-    if (!form.name.trim()) newErrors.name = "Name is required.";
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = "Please enter a valid email.";
-    }
-    if (!form.project_type) newErrors.project_type = "Please select a project type.";
-    if (!form.message.trim()) newErrors.message = "Message is required.";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -93,18 +77,9 @@ const Contact = () => {
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof FormState]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
     if (state.succeeded) {
       resetForm();
     }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!validate()) return;
-    await submitForm(form);
   };
 
   return (
@@ -205,7 +180,6 @@ const Contact = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit}
-                  noValidate
                   className="rounded-3xl border border-border bg-surface p-6 sm:p-8"
                 >
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -222,16 +196,12 @@ const Contact = () => {
                         name="name"
                         type="text"
                         autoComplete="name"
+                        required
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className={`rounded-xl border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 ${
-                          errors.name ? "border-red-500" : "border-border"
-                        }`}
+                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
-                      {errors.name && (
-                        <span className="text-xs text-red-500">{errors.name}</span>
-                      )}
                     </div>
 
                     {/* Email */}
@@ -247,16 +217,12 @@ const Contact = () => {
                         name="email"
                         type="email"
                         autoComplete="email"
+                        required
                         value={form.email}
                         onChange={handleChange}
                         placeholder="you@company.com"
-                        className={`rounded-xl border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 ${
-                          errors.email ? "border-red-500" : "border-border"
-                        }`}
+                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
-                      {errors.email && (
-                        <span className="text-xs text-red-500">{errors.email}</span>
-                      )}
                       <ValidationError
                         field="email"
                         errors={state.errors}
@@ -295,11 +261,10 @@ const Contact = () => {
                       <select
                         id="contact-project-type"
                         name="project_type"
+                        required
                         value={form.project_type}
                         onChange={handleChange}
-                        className={`rounded-xl border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 ${
-                          errors.project_type ? "border-red-500" : "border-border"
-                        }`}
+                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       >
                         <option value="">Select a type…</option>
                         {PROJECT_TYPES.map((t) => (
@@ -308,11 +273,6 @@ const Contact = () => {
                           </option>
                         ))}
                       </select>
-                      {errors.project_type && (
-                        <span className="text-xs text-red-500">
-                          {errors.project_type}
-                        </span>
-                      )}
                     </div>
 
                     {/* Budget range — full width */}
@@ -357,16 +317,12 @@ const Contact = () => {
                         id="contact-message"
                         name="message"
                         rows={5}
+                        required
                         value={form.message}
                         onChange={handleChange}
                         placeholder="Describe your project, challenge, or opportunity…"
-                        className={`resize-none rounded-xl border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 ${
-                          errors.message ? "border-red-500" : "border-border"
-                        }`}
+                        className="resize-none rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
-                      {errors.message && (
-                        <span className="text-xs text-red-500">{errors.message}</span>
-                      )}
                       <ValidationError
                         field="message"
                         errors={state.errors}
