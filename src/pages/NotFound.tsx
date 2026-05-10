@@ -10,6 +10,7 @@ const NotFound = () => {
       <SEO
         title="Page Not Found"
         description="The page you are looking for does not exist. Head back to the homepage or explore Ayoub Ben Yahia's data analytics portfolio."
+        noIndex
       />
       <section className="container flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
         {/* Decorative number */}

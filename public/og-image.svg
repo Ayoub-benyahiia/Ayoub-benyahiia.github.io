@@ -1,0 +1,20 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Ayoub Ben Yahia - Data Analyst &amp; Marketing Analytics Specialist</title>
+  <desc id="desc">Open Graph image for Ayoub Ben Yahia's portfolio.</desc>
+  <rect width="1200" height="630" fill="#080808"/>
+  <path d="M0 0H1200V630H0V0Z" fill="url(#grid)" opacity="0.26"/>
+  <circle cx="980" cy="120" r="220" fill="#B8F060" opacity="0.12"/>
+  <circle cx="170" cy="520" r="260" fill="#B8F060" opacity="0.08"/>
+  <rect x="72" y="72" width="1056" height="486" rx="42" stroke="#B8F060" stroke-opacity="0.34" stroke-width="2"/>
+  <rect x="100" y="100" width="72" height="72" rx="20" fill="#B8F060"/>
+  <text x="136" y="149" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" fill="#080808">A</text>
+  <text x="100" y="260" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" fill="#F7F7F7">Ayoub Ben Yahia</text>
+  <text x="100" y="336" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="600" fill="#B8F060">Data Analyst &amp; Marketing Analytics Specialist</text>
+  <text x="100" y="420" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="500" fill="#D8D8D8">Dashboards • Marketing Analytics • KPI Reporting</text>
+  <path d="M100 478H520" stroke="#B8F060" stroke-width="8" stroke-linecap="round"/>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1"/>
+    </pattern>
+  </defs>
+</svg>

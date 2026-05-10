@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BarChart3, LayoutDashboard, Megaphone, FileClock, Search } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import {
+  createBreadcrumbSchema,
+  createFAQSchema,
+  createProfessionalServiceSchema,
+  createServiceSchema,
+  createWebPageSchema,
+} from "@/lib/schema";
 
 interface Service {
   id: string;
@@ -98,13 +106,59 @@ const SERVICES: Service[] = [
   },
 ];
 
+const FAQS = [
+  {
+    question: "What data analytics services do you offer?",
+    answer:
+      "I help with data audits, analysis, KPI tracking, business reporting, dashboards, and recommendations that turn raw data into practical decisions.",
+  },
+  {
+    question: "Can you build Power BI dashboards?",
+    answer:
+      "Yes. I build Power BI dashboards for sales, marketing, operations, and executive reporting, with clear KPIs and documentation.",
+  },
+  {
+    question: "Do you work remotely?",
+    answer:
+      "Yes. I am available for international remote collaborations, freelance projects, and remote data analyst roles.",
+  },
+  {
+    question: "Do you support businesses in Morocco?",
+    answer:
+      "Yes. I support Moroccan businesses with data analytics, dashboard creation, marketing analytics, reporting automation, and KPI tracking.",
+  },
+];
+
 const Services = () => {
+  const description =
+    "Professional data analytics services including Power BI dashboard creation, marketing analytics, reporting automation, KPI tracking, and SEO analytics.";
+
   return (
     <Layout>
       <SEO
         title="Data Analytics & Dashboard Services"
-        description="Professional data analytics services including Power BI dashboard creation, marketing analytics, reporting automation, and SEO analytics. Based in Morocco, available remotely worldwide."
-        canonical="https://ayoub-benyahia.com/services"
+        description={description}
+        canonical={absoluteUrl("/services")}
+        structuredData={[
+          createProfessionalServiceSchema({ url: absoluteUrl("/services") }),
+          createWebPageSchema({
+            title: "Data Analytics & Dashboard Services",
+            description,
+            path: "/services",
+          }),
+          ...SERVICES.map((service) =>
+            createServiceSchema({
+              title: service.title,
+              description: service.solution,
+              path: `/services#${service.id}`,
+            })
+          ),
+          createFAQSchema(FAQS),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         {/* Header */}
@@ -133,6 +187,7 @@ const Services = () => {
             return (
               <motion.article
                 key={service.id}
+                id={service.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
@@ -211,6 +266,38 @@ const Services = () => {
             );
           })}
         </div>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mx-auto mt-20 max-w-3xl"
+          aria-labelledby="services-faq-heading"
+        >
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">
+            // FAQ
+          </p>
+          <h2
+            id="services-faq-heading"
+            className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl"
+          >
+            Common questions before we start.
+          </h2>
+          <div className="mt-8 grid gap-4">
+            {FAQS.map((item) => (
+              <article
+                key={item.question}
+                className="rounded-2xl border border-border bg-surface p-5"
+              >
+                <h3 className="text-base font-semibold">{item.question}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </motion.section>
 
         {/* Bottom CTA */}
         <motion.div

@@ -120,7 +120,7 @@ export const Hero = () => {
             >
               I specialize in{" "}
               <span className="text-foreground">data analytics</span>,{" "}
-              <span className="text-foreground">dashboard creation</span>,{" "}
+              <span className="text-foreground">dashboards</span>,{" "}
               <span className="text-foreground">marketing analytics</span>,{" "}
               <span className="text-foreground">business reporting</span>, and{" "}
               <span className="text-foreground">KPI tracking</span>
@@ -146,6 +146,13 @@ export const Hero = () => {
                 className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
               >
                 View Projects
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                to="/insights"
+                className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+              >
+                Read Insights
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </motion.div>

@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Trophy, Users, Heart, Sparkles, Image as ImageIcon } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { useActivities } from "@/hooks/queries/useActivities";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ActivityGallery } from "@/components/ActivityGallery";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import { createBreadcrumbSchema, createWebPageSchema } from "@/lib/schema";
 
 const CATEGORY_ICON: Record<string, typeof Trophy> = {
   Leadership: Users,
@@ -48,6 +51,8 @@ const MOCK_ACTIVITIES = [
 
 const Activities = () => {
   const { data: dbActivities, isLoading } = useActivities();
+  const description =
+    "Activities, community involvement, learning, and public work that show Ayoub Ben Yahia's growth beyond data analytics projects.";
 
   // Merge DB data with mock data or use mock if DB is empty/fails
   const activities = dbActivities?.length 
@@ -79,8 +84,19 @@ const Activities = () => {
     <Layout>
       <SEO
         title="Activities & Community Involvement"
-        description="Hackathons, leadership, sports, and community initiatives. A look at Ayoub Ben Yahia beyond the data — how curiosity, teamwork, and continuous learning shape the work."
-        canonical="https://ayoub-benyahia.com/activities"
+        description={description}
+        canonical={absoluteUrl("/activities")}
+        structuredData={[
+          createWebPageSchema({
+            title: "Activities & Community Involvement",
+            description,
+            path: "/activities",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Activities", path: "/activities" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         <motion.header
@@ -99,6 +115,20 @@ const Activities = () => {
             Clubs founded, hackathons joined, sports played, ideas published. The story
             outside the CV.
           </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/experience"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              View experience
+            </Link>
+            <Link
+              to="/contact"
+              className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+            >
+              Contact Ayoub
+            </Link>
+          </div>
         </motion.header>
 
         <div className="mx-auto mt-12 flex max-w-2xl flex-col gap-6">

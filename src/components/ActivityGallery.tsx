@@ -25,6 +25,7 @@ export const ActivityGallery = ({ images, title }: ActivityGalleryProps) => {
             key={activeIndex}
             src={displayImages[activeIndex]}
             alt={`${title} - view ${activeIndex + 1}`}
+            loading="lazy"
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -49,8 +50,9 @@ export const ActivityGallery = ({ images, title }: ActivityGalleryProps) => {
           >
             <img
               src={img}
-              alt={`${title} thumbnail ${idx + 1}`}
+              alt={`${title} gallery thumbnail ${idx + 1}`}
               className="h-full w-full object-cover"
+              loading="lazy"
             />
             {activeIndex === idx && (
               <motion.div

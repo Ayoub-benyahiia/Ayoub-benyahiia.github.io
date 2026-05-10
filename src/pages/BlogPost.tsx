@@ -1,4 +1,4 @@
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Navigate, Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -10,9 +10,16 @@ import { useBlogPost } from "@/hooks/queries/useBlogPosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl, OWNER_NAME } from "@/lib/seo";
+import {
+  createArticleSchema,
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from "@/lib/schema";
 
 const InsightsPost = () => {
   const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const { data: post, isLoading, isError } = useBlogPost(slug ?? "");
 
   if (isLoading) {
@@ -47,18 +54,45 @@ const InsightsPost = () => {
   };
 
   const readingTime = Math.max(1, Math.ceil((post.content?.length ?? 0) / 1200));
+  const canonicalPath = `/insights/${post.slug}`;
+  const canonical = location.pathname.startsWith("/blog")
+    ? absoluteUrl(canonicalPath)
+    : absoluteUrl(canonicalPath);
+  const description =
+    post.excerpt ??
+    `Read the full insight: ${post.title}. Data analytics, dashboards, and business intelligence explained clearly.`;
 
   return (
     <Layout>
       <SEO
         title={post.title}
-        description={
-          post.excerpt ??
-          `Read the full insight: ${post.title}. Data analytics, dashboards, and business intelligence explained clearly.`
-        }
-        canonical={`https://ayoub-benyahia.com/insights/${post.slug}`}
+        description={description}
+        canonical={canonical}
         ogImage={post.cover_url ?? undefined}
-        type="article"
+        ogType="article"
+        publishedTime={post.published_at}
+        modifiedTime={post.updated_at}
+        author={OWNER_NAME}
+        structuredData={[
+          createArticleSchema({
+            title: post.title,
+            description,
+            path: canonicalPath,
+            image: post.cover_url,
+            publishedTime: post.published_at,
+            modifiedTime: post.updated_at,
+          }),
+          createWebPageSchema({
+            title: post.title,
+            description,
+            path: canonicalPath,
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/insights" },
+            { name: post.title, path: canonicalPath },
+          ]),
+        ]}
       />
       <article className="container py-12 sm:py-16">
         <div className="mx-auto max-w-3xl">
@@ -124,7 +158,7 @@ const InsightsPost = () => {
             >
               <img
                 src={post.cover_url}
-                alt={post.title}
+                alt={`Cover image for ${post.title}`}
                 className="w-full object-cover"
                 loading="eager"
               />

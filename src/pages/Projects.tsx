@@ -22,6 +22,12 @@ import { ExpandableCell } from "@/components/ExpandableCell";
 import { useProjects } from "@/hooks/queries/useProjects";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import {
+  createBreadcrumbSchema,
+  createCollectionPageSchema,
+  createWebPageSchema,
+} from "@/lib/schema";
 
 const CATEGORY_ICON: Record<string, typeof Cog> = {
   "Industrial Automation": Cog,
@@ -39,6 +45,8 @@ const Projects = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [query, setQuery] = useState("");
   const { data: projectCells, isLoading } = useProjects();
+  const description =
+    "Browse data analytics projects covering Power BI dashboards, marketing analytics, business reporting, KPI tracking, automation, and measurable business results.";
 
   const filteredCells = useMemo(() => {
     if (!projectCells) return [];
@@ -84,8 +92,24 @@ const Projects = () => {
     <Layout>
       <SEO
         title="Data Projects & Analytics Portfolio"
-        description="Browse real data analytics projects: Power BI dashboards, marketing analytics, business reporting automation, and KPI tracking systems. Each project includes tools, results, and case study links."
-        canonical="https://ayoub-benyahia.com/projects"
+        description={description}
+        canonical={absoluteUrl("/projects")}
+        structuredData={[
+          createCollectionPageSchema({
+            title: "Data Projects & Analytics Portfolio",
+            description,
+            path: "/projects",
+          }),
+          createWebPageSchema({
+            title: "Data Projects & Analytics Portfolio",
+            description,
+            path: "/projects",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         {/* ── Header ── */}
@@ -103,8 +127,8 @@ const Projects = () => {
           </h1>
           <p className="mt-4 text-muted-foreground sm:text-lg">
             A portfolio of data projects that helped businesses make better
-            decisions — from dashboards and automation to analytics and
-            reporting. Each project is documented openly.
+            decisions through dashboards, analytics, reporting, KPI tracking,
+            and automation. Each project is documented openly.
           </p>
         </motion.header>
 
@@ -200,7 +224,7 @@ const Projects = () => {
                         {project.image_url || project.cover_url ? (
                           <img
                             src={project.image_url ?? project.cover_url ?? ""}
-                            alt={project.name}
+                            alt={`Screenshot of ${project.name}`}
                             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
                           />

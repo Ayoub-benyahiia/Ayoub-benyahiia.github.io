@@ -24,9 +24,6 @@ const ICON_MAP: Record<string, typeof Mail> = {
   medium: BookOpen,
 };
 
-// Fallback shown only when Supabase profile.email is not available
-const FALLBACK_EMAIL = "ayoub@example.com";
-
 const POSITIONING =
   "Data Analyst & Marketing Analytics Specialist helping businesses turn raw data into dashboards, insights, and better decisions.";
 
@@ -56,7 +53,7 @@ export const Footer = () => {
   const { data: profile } = useProfile();
   const { data: socialLinks } = useSocialLinks();
 
-  const email = profile?.email ?? FALLBACK_EMAIL;
+  const email = profile?.email ?? "";
 
   if (!profile) return null;
 
@@ -249,14 +246,16 @@ export const Footer = () => {
                 Work With Me
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
-              <a
-                href={`mailto:${email}`}
-                id="footer-cta-email"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent hover:text-accent"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                Email Me Directly
-              </a>
+              {email && (
+                <a
+                  href={`mailto:${email}`}
+                  id="footer-cta-email"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  Email Me Directly
+                </a>
+              )}
             </div>
           </motion.div>
         </div>

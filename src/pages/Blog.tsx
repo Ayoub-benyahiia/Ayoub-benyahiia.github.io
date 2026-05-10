@@ -1,17 +1,30 @@
 ﻿import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Search, Calendar, ArrowRight, FileText } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { usePublishedBlogPosts } from "@/hooks/queries/useBlogPosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import {
+  createBlogSchema,
+  createBreadcrumbSchema,
+  createCollectionPageSchema,
+  createWebPageSchema,
+} from "@/lib/schema";
 
 const Insights = () => {
   const { data: posts, isLoading } = usePublishedBlogPosts();
+  const location = useLocation();
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const description =
+    "Practical insights, guides, and use cases on data analytics, marketing analytics, dashboards, reporting, KPI tracking, and better business decisions.";
+  const canonical = location.pathname.startsWith("/blog")
+    ? absoluteUrl("/insights")
+    : absoluteUrl("/insights");
 
   const allTags = useMemo(() => {
     if (!posts) return [];
@@ -52,8 +65,29 @@ const Insights = () => {
       <Layout>
       <SEO
         title="Insights \u2014 Data Analytics Guides & Use Cases"
-        description="Practical guides, real-world data use cases, marketing analytics tips, and business reporting examples. Written to help teams make better decisions with their data."
-        canonical="https://ayoub-benyahia.com/insights"
+        description={description}
+        canonical={canonical}
+        structuredData={[
+          createBlogSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createCollectionPageSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createWebPageSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/insights" },
+          ]),
+        ]}
       />
         <section className="container py-12 sm:py-16">
           <div className="mx-auto max-w-3xl text-center space-y-4">
@@ -76,6 +110,32 @@ const Insights = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Insights \u2014 Data Analytics Guides & Use Cases"
+        description={description}
+        canonical={canonical}
+        structuredData={[
+          createBlogSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createCollectionPageSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createWebPageSchema({
+            title: "Insights - Data Analytics Guides & Use Cases",
+            description,
+            path: "/insights",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/insights" },
+          ]),
+        ]}
+      />
       <section className="container py-12 sm:py-16">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
@@ -90,10 +150,30 @@ const Insights = () => {
             Guides, use cases &amp; data insights.
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Practical guides, real-world use cases, industry news, and lessons
-            from data projects � written to help teams make better
+            Practical guides, real-world use cases, data analytics lessons, and
+            marketing analytics ideas written to help teams make better
             decisions with their data.
           </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/services"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              Explore services
+            </Link>
+            <Link
+              to="/projects"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              View projects
+            </Link>
+            <Link
+              to="/contact"
+              className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+            >
+              Work with Ayoub
+            </Link>
+          </div>
         </motion.header>
 
         {/* Search */}
@@ -181,7 +261,7 @@ const Insights = () => {
                     {post.cover_url ? (
                       <img
                         src={post.cover_url}
-                        alt={post.title}
+                        alt={`Cover image for ${post.title}`}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />

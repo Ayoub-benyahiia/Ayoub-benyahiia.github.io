@@ -25,8 +25,9 @@ export const CertificationCard = ({ certificate }: CertificationCardProps) => {
         <div className="relative h-40 border-b border-border">
           <img
             src={certificate.image_url}
-            alt={certificate.name}
+            alt={`${certificate.name} certificate from ${certificate.provider}`}
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+            loading="lazy"
           />
         </div>
       ) : (

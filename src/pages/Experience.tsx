@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
@@ -6,10 +7,14 @@ import { ExpandableCell } from "@/components/ExpandableCell";
 import { useExperiences } from "@/hooks/queries/useExperiences";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import { createBreadcrumbSchema, createWebPageSchema } from "@/lib/schema";
 
 const Experience = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const { data: experiences, isLoading } = useExperiences();
+  const description =
+    "Professional experience in data analytics, marketing analytics, business intelligence, dashboards, KPI reports, and data-driven insights.";
 
   if (isLoading) {
     return (
@@ -32,9 +37,20 @@ const Experience = () => {
   return (
     <Layout>
       <SEO
-        title="Work Experience — Data & Marketing Analytics"
-        description="Professional experience in data analytics, marketing analytics, and business intelligence. Track record of delivering dashboards, KPI reports, and data-driven insights for real businesses."
-        canonical="https://ayoub-benyahia.com/experience"
+        title="Work Experience - Data & Marketing Analytics"
+        description={description}
+        canonical={absoluteUrl("/experience")}
+        structuredData={[
+          createWebPageSchema({
+            title: "Work Experience - Data & Marketing Analytics",
+            description,
+            path: "/experience",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Experience", path: "/experience" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         <motion.header
@@ -47,12 +63,27 @@ const Experience = () => {
             // Experience
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
-            The story of how this profile was built.
+            Experience built around analytics, reporting, and growth.
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Industrial sites, R&D labs, and the production floor — every chapter shaped
-            a different part of how I work today.
+            A record of data analytics, marketing analytics, dashboards, KPI
+            tracking, and reporting work for businesses that need clearer
+            decisions.
           </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/projects"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              View related projects
+            </Link>
+            <Link
+              to="/contact"
+              className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+            >
+              Discuss a role or project
+            </Link>
+          </div>
         </motion.header>
 
         <div className="mx-auto mt-12 flex max-w-4xl flex-col gap-4">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -11,9 +12,12 @@ import {
 import { Layout } from "@/components/Layout";
 import { useProfile } from "@/hooks/queries/useProfile";
 import { SEO } from "@/components/SEO";
-
-// Fallback shown only when Supabase profile.email is not available
-const FALLBACK_EMAIL = "ayoub@example.com";
+import { absoluteUrl } from "@/lib/seo";
+import {
+  createBreadcrumbSchema,
+  createContactPageSchema,
+  createWebPageSchema,
+} from "@/lib/schema";
 
 const PROJECT_TYPES = [
   "Dashboard",
@@ -54,7 +58,9 @@ const INITIAL_FORM: FormState = {
 
 const Contact = () => {
   const { data: profile } = useProfile();
-  const profileEmail = profile?.email ?? FALLBACK_EMAIL;
+  const profileEmail = profile?.email ?? "";
+  const description =
+    "Contact Ayoub Ben Yahia to hire a Data Analyst & Marketing Analytics Specialist for freelance projects, remote data analyst roles, or on-site opportunities in Morocco.";
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
@@ -96,9 +102,22 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Work With Me — Hire a Freelance Data Analyst"
-        description="Available for freelance data analytics projects, remote roles, and on-site opportunities in Morocco. Tell me about your dashboard, reporting, or analytics challenge and I'll get back to you."
-        canonical="https://ayoub-benyahia.com/contact"
+        title="Work With Me - Hire a Freelance Data Analyst"
+        description={description}
+        canonical={absoluteUrl("/contact")}
+        structuredData={[
+          createContactPageSchema({ description }),
+          createWebPageSchema({
+            title: "Work With Me - Hire a Freelance Data Analyst",
+            description,
+            path: "/contact",
+            type: "ContactPage",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         {/* ── Header ── */}
@@ -116,8 +135,23 @@ const Contact = () => {
           </h1>
           <p className="mt-4 text-muted-foreground sm:text-lg">
             Tell me about your project, dashboard, reporting problem, or
-            analytics needs. I&apos;ll get back to you with the next steps.
+            analytics needs. Use this page to hire Ayoub for freelance data
+            analytics work, remote roles, or on-site opportunities in Morocco.
           </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/services"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              Review services
+            </Link>
+            <Link
+              to="/projects"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              See project examples
+            </Link>
+          </div>
         </motion.header>
 
         {/* ── Two-column layout ── */}
@@ -149,14 +183,16 @@ const Contact = () => {
                       now.
                     </p>
                   </div>
-                  <a
-                    href={`mailto:${profileEmail}`}
-                    id="contact-email-btn-success"
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
-                  >
-                    <Mail className="h-4 w-4" />
-                    Email Me at {profileEmail}
-                  </a>
+                  {profileEmail && (
+                    <a
+                      href={`mailto:${profileEmail}`}
+                      id="contact-email-btn-success"
+                      className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
+                    >
+                      <Mail className="h-4 w-4" />
+                      Email Me at {profileEmail}
+                    </a>
+                  )}
                   <button
                     onClick={() => setSubmitted(false)}
                     className="text-sm text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
@@ -341,18 +377,19 @@ const Contact = () => {
                       Send Message
                     </button>
 
-                    {/* Prefer email CTA */}
-                    <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                      Prefer email?{" "}
-                      <a
-                        id="contact-email-btn"
-                        href={`mailto:${profileEmail}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent hover:text-accent"
-                      >
-                        <Mail className="h-3.5 w-3.5" />
-                        Email Me
-                      </a>
-                    </span>
+                    {profileEmail && (
+                      <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                        Prefer email?{" "}
+                        <a
+                          id="contact-email-btn"
+                          href={`mailto:${profileEmail}`}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent hover:text-accent"
+                        >
+                          <Mail className="h-3.5 w-3.5" />
+                          Email Me
+                        </a>
+                      </span>
+                    )}
                   </div>
                 </motion.form>
               )}

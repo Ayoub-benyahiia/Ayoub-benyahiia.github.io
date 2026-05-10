@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GraduationCap, Code, Award, CalendarDays, BookOpen } from "lucide-react";
 import { Layout } from "@/components/Layout";
@@ -9,11 +10,15 @@ import { useEducation } from "@/hooks/queries/useEducation";
 import { useLearning } from "@/hooks/queries/useLearning";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEO } from "@/components/SEO";
+import { absoluteUrl } from "@/lib/seo";
+import { createBreadcrumbSchema, createWebPageSchema } from "@/lib/schema";
 
 const Education = () => {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
   const { data: educationCells, isLoading: isEduLoading } = useEducation();
   const { data: learningItems, isLoading: isLearningLoading } = useLearning();
+  const description =
+    "Academic background and professional certifications in data analytics, business intelligence, SQL, Python, Power BI, and Google Analytics.";
 
   const isLoading = isEduLoading || isLearningLoading;
 
@@ -64,9 +69,20 @@ const Education = () => {
   return (
     <Layout>
       <SEO
-        title="Education & Certifications — Data Analytics"
-        description="Academic background and professional certifications in data analytics, business intelligence, and marketing. Continuous learner with hands-on training in SQL, Python, Power BI, and Google Analytics."
-        canonical="https://ayoub-benyahia.com/education"
+        title="Education & Certifications - Data Analytics"
+        description={description}
+        canonical={absoluteUrl("/education")}
+        structuredData={[
+          createWebPageSchema({
+            title: "Education & Certifications - Data Analytics",
+            description,
+            path: "/education",
+          }),
+          createBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Education", path: "/education" },
+          ]),
+        ]}
       />
       <section className="container py-12 sm:py-16">
         <motion.header
@@ -82,6 +98,20 @@ const Education = () => {
             Academic foundations, intensive training programs, and professional
             certifications.
           </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/projects"
+              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+            >
+              See skills in projects
+            </Link>
+            <Link
+              to="/contact"
+              className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+            >
+              Work with Ayoub
+            </Link>
+          </div>
         </motion.header>
 
         {/* Dynamic Stats Banner */}
