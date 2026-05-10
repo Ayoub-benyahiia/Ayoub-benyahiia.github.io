@@ -70,6 +70,15 @@ const Contact = () => {
     }
   }, [state.succeeded]);
 
+  useEffect(() => {
+    console.info("[Contact/Formspree] state", {
+      submitting: state.submitting,
+      succeeded: state.succeeded,
+      result: state.result,
+    });
+    console.info("[Contact/Formspree] errors", state.errors);
+  }, [state.errors, state.result, state.submitting, state.succeeded]);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -174,11 +183,13 @@ const Contact = () => {
                 </motion.div>
               ) : (
                 /* Form */
-                <motion.form
+                <form
                   key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  action="https://formspree.io/f/xojrpwnl"
+                  method="POST"
+                  onSubmitCapture={() => {
+                    console.info("[Contact/Formspree] submit fired");
+                  }}
                   onSubmit={handleSubmit}
                   className="rounded-3xl border border-border bg-surface p-6 sm:p-8"
                 >
@@ -349,7 +360,7 @@ const Contact = () => {
                       {state.submitting ? "Sending..." : "Send Message"}
                     </button>
                   </div>
-                </motion.form>
+                </form>
               )}
             </AnimatePresence>
           </motion.div>
