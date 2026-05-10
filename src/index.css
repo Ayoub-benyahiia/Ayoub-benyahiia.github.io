@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================================
+   Rachid Kherbech — Portfolio Design System
+   All colors HSL. Lime accent kept consistent across themes.
+   ======================================================================== */
+
+@layer base {
+  :root {
+    /* Light theme */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 6%;
+
+    --surface: 0 0% 100%;
+    --surface-elevated: 0 0% 96%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6%;
+
+    --primary: 0 0% 6%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 6%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 38%;
+
+    /* Lime accent — same across both themes */
+    --accent: 82 86% 65%;
+    --accent-foreground: 0 0% 6%;
+    --accent-glow: 82 90% 70%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 92%;
+    --ring: 82 86% 65%;
+
+    --radius: 1rem;
+
+    --shadow-cell: 0 4px 24px -8px hsl(0 0% 0% / 0.08);
+    --shadow-glow: 0 0 40px -10px hsl(var(--accent) / 0.5);
+    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.15);
+
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-radial: radial-gradient(circle at 50% 0%, hsl(var(--accent) / 0.08), transparent 60%);
+
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
+
+    --surface: 0 0% 7%;
+    --surface-elevated: 0 0% 10%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 82 86% 65%;
+    --accent-foreground: 0 0% 6%;
+    --accent-glow: 82 90% 70%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 82 86% 65%;
+
+    --shadow-cell: 0 4px 24px -8px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 50px -10px hsl(var(--accent) / 0.45);
+    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.6);
+
+    --gradient-radial: radial-gradient(circle at 50% 0%, hsl(var(--accent) / 0.12), transparent 60%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    transition: background-color 0.4s var(--transition-smooth), color 0.4s var(--transition-smooth);
+  }
+
+  ::selection {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .text-accent-glow {
+    color: hsl(var(--accent));
+    text-shadow: 0 0 30px hsl(var(--accent) / 0.4);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; }
+}
+
+/* ========================================================================
+   Blog — Markdown prose styles
+   ======================================================================== */
+.blog-content {
+  @apply text-foreground leading-relaxed;
+}
+.blog-content h1 {
+  @apply text-3xl font-semibold tracking-tight mt-12 mb-4;
+}
+.blog-content h2 {
+  @apply text-2xl font-semibold tracking-tight mt-10 mb-3 border-b border-border pb-2;
+}
+.blog-content h3 {
+  @apply text-xl font-semibold mt-8 mb-3;
+}
+.blog-content h4 {
+  @apply text-lg font-semibold mt-6 mb-2;
+}
+.blog-content p {
+  @apply mb-5 text-foreground/90;
+}
+.blog-content a {
+  @apply text-accent underline underline-offset-4 decoration-accent/40 transition-colors duration-300 hover:decoration-accent;
+}
+.blog-content strong {
+  @apply font-semibold text-foreground;
+}
+.blog-content em {
+  @apply italic;
+}
+.blog-content blockquote {
+  @apply border-l-4 border-accent/60 pl-4 my-6 italic text-muted-foreground;
+}
+.blog-content ul {
+  @apply list-disc pl-6 mb-5 space-y-1;
+}
+.blog-content ol {
+  @apply list-decimal pl-6 mb-5 space-y-1;
+}
+.blog-content li {
+  @apply text-foreground/90;
+}
+.blog-content code {
+  @apply font-mono text-sm bg-surface-elevated rounded px-1.5 py-0.5 text-accent;
+}
+.blog-content pre {
+  @apply rounded-2xl border border-border my-6 overflow-x-auto;
+}
+.blog-content pre code {
+  @apply bg-transparent px-0 py-0 text-inherit text-sm block p-5;
+}
+.blog-content img {
+  @apply rounded-2xl border border-border my-6 w-full;
+}
+.blog-content hr {
+  @apply border-border my-8;
+}
+.blog-content table {
+  @apply w-full border-collapse my-6 text-sm;
+}
+.blog-content thead th {
+  @apply border-b border-border px-3 py-2 text-left font-semibold text-foreground;
+}
+.blog-content tbody td {
+  @apply border-b border-border/50 px-3 py-2 text-foreground/90;
+}
+.blog-content tbody tr:hover {
+  @apply bg-surface;
+}
