@@ -14,12 +14,12 @@ import {
 
 const Index = () => {
   const description =
-    "Ayoub Ben Yahia helps businesses use data analytics, dashboards, marketing analytics, business reporting, and KPI tracking to make better decisions.";
+    "Portfolio of Ayoub Ben Yahia, a Junior Data Analyst / BI Analyst focused on Marketing Analytics, dashboards, KPI reporting, SQL, Power BI, Excel, and Python.";
 
   return (
     <Layout>
       <SEO
-        title="Freelance Data Analyst & Dashboard Expert"
+        title="Junior Data Analyst / BI Analyst Portfolio"
         description={description}
         canonical={absoluteUrl("/")}
         structuredData={[
@@ -27,7 +27,7 @@ const Index = () => {
           createWebsiteSchema(),
           createProfessionalServiceSchema({ url: absoluteUrl("/") }),
           createWebPageSchema({
-            title: "Freelance Data Analyst & Dashboard Expert",
+            title: "Junior Data Analyst / BI Analyst Portfolio",
             description: DEFAULT_DESCRIPTION,
             path: "/",
           }),

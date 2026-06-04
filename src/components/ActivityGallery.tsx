@@ -42,8 +42,11 @@ export const ActivityGallery = ({ images, title }: ActivityGalleryProps) => {
       <div className="grid grid-cols-3 gap-3">
         {displayImages.map((img, idx) => (
           <button
+            type="button"
             key={idx}
             onClick={() => setActiveIndex(idx)}
+            aria-label={`Show ${title} gallery image ${idx + 1}`}
+            aria-pressed={activeIndex === idx}
             className={cn(
               "relative aspect-square overflow-hidden rounded-xl border-2 transition-all duration-300",
               activeIndex === idx

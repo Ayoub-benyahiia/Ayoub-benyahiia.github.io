@@ -46,7 +46,7 @@ const Projects = () => {
   const [query, setQuery] = useState("");
   const { data: projectCells, isLoading } = useProjects();
   const description =
-    "Browse data analytics projects covering Power BI dashboards, marketing analytics, business reporting, KPI tracking, automation, and measurable business results.";
+    "Browse Ayoub Ben Yahia's Junior Data Analyst / BI Analyst project portfolio focused on Marketing Analytics, Power BI dashboards, SQL, Excel, Python, KPI reporting, and business intelligence.";
 
   const filteredCells = useMemo(() => {
     if (!projectCells) return [];
@@ -91,17 +91,17 @@ const Projects = () => {
   return (
     <Layout>
       <SEO
-        title="Data Projects & Analytics Portfolio"
+        title="Data Analyst / BI Project Portfolio"
         description={description}
         canonical={absoluteUrl("/projects")}
         structuredData={[
           createCollectionPageSchema({
-            title: "Data Projects & Analytics Portfolio",
+            title: "Data Analyst / BI Project Portfolio",
             description,
             path: "/projects",
           }),
           createWebPageSchema({
-            title: "Data Projects & Analytics Portfolio",
+            title: "Data Analyst / BI Project Portfolio",
             description,
             path: "/projects",
           }),
@@ -135,6 +135,9 @@ const Projects = () => {
         {/* ── Search ── */}
         <div className="mx-auto mt-10 max-w-xl">
           <div className="relative">
+            <label htmlFor="projects-search" className="sr-only">
+              Search projects
+            </label>
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               id="projects-search"
@@ -150,9 +153,32 @@ const Projects = () => {
         {/* ── Categories & Project Cards ── */}
         <div className="mx-auto mt-16 flex max-w-4xl flex-col gap-4">
           {filteredCells.length === 0 && (
-            <p className="text-center text-sm text-muted-foreground">
-              No projects match &ldquo;{query}&rdquo;.
-            </p>
+            <div className="rounded-3xl border border-border bg-surface p-8 text-center">
+              <h2 className="text-lg font-semibold">
+                {query ? "No matching projects found." : "Projects will be added soon."}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {query
+                  ? `No projects match "${query}". Try a different tool, industry, or keyword.`
+                  : "This section is ready for verified project data from Supabase. No placeholder projects are shown."}
+              </p>
+              {!query && (
+                <div className="mt-5 flex flex-wrap justify-center gap-3">
+                  <Link
+                    to="/services"
+                    className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+                  >
+                    View Services
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+                  >
+                    Work With Me
+                  </Link>
+                </div>
+              )}
+            </div>
           )}
 
           {filteredCells.map((cell, idx) => {
@@ -270,14 +296,14 @@ const Projects = () => {
                       )}
 
                       {/* ── Action buttons ── */}
-                      <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                      <div className="mt-auto grid gap-2 pt-5 sm:flex sm:flex-wrap">
                         {/* Primary: Read Case Study */}
                         {project.medium_url && (
                           <a
                             href={project.medium_url}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition-all duration-300 hover:scale-[1.03] hover:bg-accent-glow"
+                            className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition-all duration-300 hover:scale-[1.03] hover:bg-accent-glow"
                           >
                             Read Case Study
                             <ExternalLink className="h-3 w-3" />
@@ -287,7 +313,7 @@ const Projects = () => {
                         {/* Always: Build Similar Project → /contact */}
                         <Link
                           to="/contact"
-                          className="inline-flex items-center gap-1.5 rounded-full border border-accent/50 bg-accent/5 px-3 py-1.5 text-xs font-medium text-accent transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:scale-[1.03]"
+                          className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-accent/50 bg-accent/5 px-3 py-1.5 text-xs font-medium text-accent transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:scale-[1.03]"
                         >
                           Build Similar
                           <ArrowRight className="h-3 w-3" />
@@ -299,7 +325,7 @@ const Projects = () => {
                             href={project.live_url}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+                            className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
                           >
                             View Live
                             <Globe className="h-3 w-3" />
@@ -312,7 +338,7 @@ const Projects = () => {
                             href={project.github_url}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+                            className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
                           >
                             GitHub
                             <Github className="h-3 w-3" />

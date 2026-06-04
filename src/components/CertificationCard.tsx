@@ -9,7 +9,12 @@ export const CertificationCard = ({ certificate }: CertificationCardProps) => {
   // If the certificate has a URL, we wrap the entire card in an anchor tag
   const CardWrapper = certificate.url ? "a" : "div";
   const wrapperProps = certificate.url 
-    ? { href: certificate.url, target: "_blank", rel: "noopener noreferrer" } 
+    ? {
+        href: certificate.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": `Open ${certificate.name} certificate`,
+      }
     : {};
 
   return (
@@ -38,7 +43,7 @@ export const CertificationCard = ({ certificate }: CertificationCardProps) => {
           <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
             <FileBadge className="h-8 w-8 text-muted-foreground/60" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-              Image non définie
+              No certificate image
             </span>
           </div>
         </div>

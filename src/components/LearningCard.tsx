@@ -8,7 +8,12 @@ interface LearningCardProps {
 export const LearningCard = ({ learning }: LearningCardProps) => {
   const CardWrapper = learning.url ? "a" : "div";
   const wrapperProps = learning.url 
-    ? { href: learning.url, target: "_blank", rel: "noopener noreferrer" } 
+    ? {
+        href: learning.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": `Open ${learning.title} learning resource`,
+      }
     : {};
 
   return (
@@ -21,7 +26,7 @@ export const LearningCard = ({ learning }: LearningCardProps) => {
       <div className="flex flex-col gap-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2 rounded-full border border-accent/20 bg-background/50 px-3 py-1">
-            <Loader className="h-3.5 w-3.5 animate-spin text-accent" />
+            <Loader className="h-3.5 w-3.5 animate-spin text-accent motion-reduce:animate-none" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
               In Progress
             </span>

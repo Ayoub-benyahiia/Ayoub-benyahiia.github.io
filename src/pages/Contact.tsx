@@ -60,7 +60,7 @@ const Contact = () => {
   const { data: profile } = useProfile();
   const [state, handleSubmit, resetForm] = useForm("xojrpwnl");
   const description =
-    "Contact Ayoub Ben Yahia to hire a Data Analyst & Marketing Analytics Specialist for freelance projects, remote data analyst roles, or on-site opportunities in Morocco.";
+    "Contact Ayoub Ben Yahia about Junior Data Analyst / BI Analyst opportunities, Marketing Analytics projects, dashboards, KPI reporting, SQL, Power BI, Excel, or Python analysis work.";
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
 
@@ -85,13 +85,13 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Work With Me - Hire a Freelance Data Analyst"
+        title="Contact - Junior Data Analyst / BI Analyst"
         description={description}
         canonical={absoluteUrl("/contact")}
         structuredData={[
           createContactPageSchema({ description }),
           createWebPageSchema({
-            title: "Work With Me - Hire a Freelance Data Analyst",
+            title: "Contact - Junior Data Analyst / BI Analyst",
             description,
             path: "/contact",
             type: "ContactPage",
@@ -125,16 +125,16 @@ const Contact = () => {
             Tell me what you&apos;re trying to measure or improve. I&apos;ll
             review your request and get back to you with a practical next step.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-6 grid gap-3 sm:flex sm:flex-wrap sm:justify-center">
             <Link
               to="/services"
-              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
               View Services
             </Link>
             <Link
               to="/projects"
-              className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >
               View Projects
             </Link>
@@ -203,7 +203,7 @@ const Contact = () => {
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        className="min-h-11 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
                     </div>
 
@@ -224,7 +224,7 @@ const Contact = () => {
                         value={form.email}
                         onChange={handleChange}
                         placeholder="you@company.com"
-                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        className="min-h-11 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
                       <ValidationError
                         field="email"
@@ -249,7 +249,7 @@ const Contact = () => {
                         value={form.company}
                         onChange={handleChange}
                         placeholder="Your company (optional)"
-                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        className="min-h-11 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
                     </div>
 
@@ -267,7 +267,7 @@ const Contact = () => {
                         required
                         value={form.project_type}
                         onChange={handleChange}
-                        className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        className="min-h-11 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       >
                         <option value="">Select a type…</option>
                         {PROJECT_TYPES.map((t) => (
@@ -292,10 +292,11 @@ const Contact = () => {
                             key={b}
                             type="button"
                             id={`contact-budget-${b.toLowerCase().replace(/[\s/]+/g, "-")}`}
+                            aria-pressed={form.budget === b}
                             onClick={() =>
                               setForm((prev) => ({ ...prev, budget: b }))
                             }
-                            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
+                            className={`min-h-10 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                               form.budget === b
                                 ? "border-accent bg-accent/10 text-accent"
                                 : "border-border text-muted-foreground hover:border-accent/50 hover:text-foreground"
@@ -324,7 +325,7 @@ const Contact = () => {
                         value={form.message}
                         onChange={handleChange}
                         placeholder="Describe your project, challenge, or opportunity…"
-                        className="resize-none rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        className="min-h-36 resize-y rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                       />
                       <ValidationError
                         field="message"
@@ -346,7 +347,7 @@ const Contact = () => {
                       id="contact-submit-btn"
                       type="submit"
                       disabled={state.submitting}
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+                      className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 sm:w-auto"
                     >
                       <Send className="h-4 w-4" />
                       {state.submitting ? "Sending..." : "Send Message"}

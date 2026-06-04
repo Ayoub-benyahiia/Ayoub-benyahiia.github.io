@@ -44,7 +44,7 @@ export const ExpandableCell = ({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-4 p-4 text-left sm:gap-6 sm:p-5"
+        className="flex w-full items-center gap-4 p-4 text-left transition-colors hover:bg-background/40 sm:gap-6 sm:p-5"
       >
         <div
           className="shrink-0 grid h-14 w-14 sm:h-16 sm:w-16 place-items-center overflow-hidden rounded-2xl border border-accent/10 bg-accent/10 transition-all duration-500"

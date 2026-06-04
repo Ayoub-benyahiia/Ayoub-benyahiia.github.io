@@ -1,8 +1,13 @@
-import { Helmet } from "react-helmet-async";
-import { DEFAULT_DESCRIPTION, OWNER_NAME, SITE_NAME } from "@/lib/seo";
+import { useEffect } from "react";
+import {
+  absoluteAssetUrl,
+  DEFAULT_DESCRIPTION,
+  JOB_TITLE,
+  OWNER_NAME,
+  SITE_NAME,
+} from "@/lib/seo";
 
-const DEFAULT_TITLE =
-  "Ayoub Ben Yahia - Data Analyst & Marketing Analytics Specialist";
+const DEFAULT_TITLE = `${OWNER_NAME} - ${JOB_TITLE}`;
 const DEFAULT_OG_IMAGE = "/og-image.svg";
 
 type JsonLd = Record<string, unknown>;
@@ -44,6 +49,7 @@ export const SEO = ({
   const resolvedOgTitle = ogTitle ?? fullTitle;
   const resolvedOgDesc = ogDescription ?? description;
   const resolvedOgType = ogType ?? type ?? "website";
+  const resolvedOgImage = ogImage ? absoluteAssetUrl(ogImage) : undefined;
   const robotsContent = noIndex ? "noindex, nofollow" : "index, follow";
   const googlebotContent = noIndex
     ? "noindex, nofollow"
@@ -53,41 +59,115 @@ export const SEO = ({
     : structuredData
       ? [structuredData]
       : [];
+  const serializedSchemas = schemas.map((schema) => JSON.stringify(schema));
 
-  return (
-    <Helmet>
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <meta name="robots" content={robotsContent} />
-      <meta name="googlebot" content={googlebotContent} />
-      {canonical && <link rel="canonical" href={canonical} />}
+  useEffect(() => {
+    const managedAttr = "data-managed-seo";
 
-      <meta property="og:type" content={resolvedOgType} />
-      <meta property="og:title" content={resolvedOgTitle} />
-      <meta property="og:description" content={resolvedOgDesc} />
-      {canonical && <meta property="og:url" content={canonical} />}
-      <meta property="og:site_name" content={SITE_NAME} />
-      {ogImage && <meta property="og:image" content={ogImage} />}
-      {resolvedOgType === "article" && publishedTime && (
-        <meta property="article:published_time" content={publishedTime} />
-      )}
-      {resolvedOgType === "article" && modifiedTime && (
-        <meta property="article:modified_time" content={modifiedTime} />
-      )}
-      {resolvedOgType === "article" && author && (
-        <meta property="article:author" content={author} />
-      )}
+    const setMeta = (
+      attribute: "name" | "property",
+      key: string,
+      content?: string | null
+    ) => {
+      const selector = `meta[${attribute}="${key}"][${managedAttr}="true"]`;
+      const existing = document.head.querySelector<HTMLMetaElement>(selector);
 
-      <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:title" content={resolvedOgTitle} />
-      <meta name="twitter:description" content={resolvedOgDesc} />
-      {ogImage && <meta name="twitter:image" content={ogImage} />}
+      if (!content) {
+        existing?.remove();
+        return;
+      }
 
-      {schemas.map((schema, index) => (
-        <script key={index} type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      ))}
-    </Helmet>
-  );
+      const tag = existing ?? document.createElement("meta");
+      tag.setAttribute(attribute, key);
+      tag.setAttribute("content", content);
+      tag.setAttribute(managedAttr, "true");
+
+      if (!existing) {
+        document.head.appendChild(tag);
+      }
+    };
+
+    const setCanonical = (href?: string) => {
+      const existing = document.head.querySelector<HTMLLinkElement>(
+        `link[rel="canonical"][${managedAttr}="true"]`
+      );
+
+      if (!href) {
+        existing?.remove();
+        return;
+      }
+
+      const tag = existing ?? document.createElement("link");
+      tag.setAttribute("rel", "canonical");
+      tag.setAttribute("href", href);
+      tag.setAttribute(managedAttr, "true");
+
+      if (!existing) {
+        document.head.appendChild(tag);
+      }
+    };
+
+    document.documentElement.lang = "en";
+    document.title = fullTitle;
+    setMeta("name", "description", description);
+    setMeta("name", "robots", robotsContent);
+    setMeta("name", "googlebot", googlebotContent);
+    setCanonical(canonical);
+
+    setMeta("property", "og:type", resolvedOgType);
+    setMeta("property", "og:title", resolvedOgTitle);
+    setMeta("property", "og:description", resolvedOgDesc);
+    setMeta("property", "og:url", canonical);
+    setMeta("property", "og:site_name", SITE_NAME);
+    setMeta("property", "og:image", resolvedOgImage);
+    setMeta(
+      "property",
+      "article:published_time",
+      resolvedOgType === "article" ? publishedTime : undefined
+    );
+    setMeta(
+      "property",
+      "article:modified_time",
+      resolvedOgType === "article" ? modifiedTime : undefined
+    );
+    setMeta(
+      "property",
+      "article:author",
+      resolvedOgType === "article" ? author : undefined
+    );
+
+    setMeta("name", "twitter:card", twitterCard);
+    setMeta("name", "twitter:title", resolvedOgTitle);
+    setMeta("name", "twitter:description", resolvedOgDesc);
+    setMeta("name", "twitter:image", resolvedOgImage);
+
+    document.head
+      .querySelectorAll(`script[type="application/ld+json"][${managedAttr}="jsonld"]`)
+      .forEach((tag) => tag.remove());
+
+    serializedSchemas.forEach((schema) => {
+      const tag = document.createElement("script");
+      tag.type = "application/ld+json";
+      tag.setAttribute(managedAttr, "jsonld");
+      tag.text = schema;
+      document.head.appendChild(tag);
+    });
+  }, [
+    author,
+    canonical,
+    description,
+    fullTitle,
+    googlebotContent,
+    modifiedTime,
+    publishedTime,
+    resolvedOgDesc,
+    resolvedOgImage,
+    resolvedOgTitle,
+    resolvedOgType,
+    robotsContent,
+    serializedSchemas,
+    twitterCard,
+  ]);
+
+  return null;
 };

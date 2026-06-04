@@ -131,7 +131,7 @@ const FAQS = [
 
 const Services = () => {
   const description =
-    "Professional data analytics services including Power BI dashboard creation, marketing analytics, reporting automation, KPI tracking, and SEO analytics.";
+    "Data analytics service overview covering Power BI dashboard creation, Marketing Analytics, reporting automation, KPI tracking, and business intelligence support.";
 
   return (
     <Layout>

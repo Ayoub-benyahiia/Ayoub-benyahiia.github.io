@@ -75,7 +75,7 @@ export const Footer = () => {
             <Link
               to="/contact"
               id="footer-cta-start-project"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] hover:bg-accent-glow"
             >
               Work With Me
               <ArrowRight className="h-3.5 w-3.5" />
@@ -83,7 +83,7 @@ export const Footer = () => {
             <Link
               to="/services"
               id="footer-cta-view-services"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
             >
               View Services
             </Link>
@@ -147,12 +147,9 @@ export const Footer = () => {
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
               {NAV_LINKS.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="transition hover:text-accent"
-                  >
+                  <Link to={item.href} className="transition hover:text-accent">
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -171,9 +168,9 @@ export const Footer = () => {
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
               {SERVICE_LINKS.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} className="transition hover:text-accent">
+                  <Link to={s.href} className="transition hover:text-accent">
                     {s.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -231,7 +228,7 @@ export const Footer = () => {
               <Link
                 to="/contact"
                 id="footer-cta-work-with-me"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:bg-accent-glow"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground shadow-glow transition-all duration-300 hover:bg-accent-glow"
               >
                 Work With Me
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -245,7 +242,7 @@ export const Footer = () => {
           <p>
             © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/contact" className="transition hover:text-accent">
               Work With Me
             </Link>

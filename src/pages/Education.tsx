@@ -18,13 +18,29 @@ const Education = () => {
   const { data: educationCells, isLoading: isEduLoading } = useEducation();
   const { data: learningItems, isLoading: isLearningLoading } = useLearning();
   const description =
-    "Academic background and professional certifications in data analytics, business intelligence, SQL, Python, Power BI, and Google Analytics.";
+    "Ayoub Ben Yahia's education and certifications for data analytics, business intelligence, SQL, Python, Power BI, Excel, dashboards, and KPI reporting.";
 
   const isLoading = isEduLoading || isLearningLoading;
 
   if (isLoading) {
     return (
       <Layout>
+        <SEO
+          title="Education & Certifications - Data Analytics and BI"
+          description={description}
+          canonical={absoluteUrl("/education")}
+          structuredData={[
+            createWebPageSchema({
+              title: "Education & Certifications - Data Analytics and BI",
+              description,
+              path: "/education",
+            }),
+            createBreadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Education", path: "/education" },
+            ]),
+          ]}
+        />
         <section className="container py-12 sm:py-16">
           <div className="mx-auto max-w-3xl text-center space-y-4">
             <Skeleton className="h-6 w-24 mx-auto" />
@@ -65,16 +81,21 @@ const Education = () => {
   const displayYears = totalYears > 0 ? `${totalYears}+` : `${academicCells.length > 0 ? '5+' : '0'}`;
   const displayCerts = `${allCertificates.length}+`;
   const displayBootcamps = `${bootcampCells.length}+`;
+  const hasEducationContent =
+    academicCells.length > 0 ||
+    bootcampCells.length > 0 ||
+    allCertificates.length > 0 ||
+    (learningItems?.length ?? 0) > 0;
 
   return (
     <Layout>
       <SEO
-        title="Education & Certifications - Data Analytics"
+        title="Education & Certifications - Data Analytics and BI"
         description={description}
         canonical={absoluteUrl("/education")}
         structuredData={[
           createWebPageSchema({
-            title: "Education & Certifications - Data Analytics",
+            title: "Education & Certifications - Data Analytics and BI",
             description,
             path: "/education",
           }),
@@ -115,6 +136,7 @@ const Education = () => {
         </motion.header>
 
         {/* Dynamic Stats Banner */}
+        {hasEducationContent && (
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -134,9 +156,36 @@ const Education = () => {
             <span className="mt-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Bootcamps</span>
           </div>
         </motion.div>
+        )}
 
         {/* SECTION A: The Accordions */}
         <div className="mx-auto mt-12 flex max-w-4xl flex-col gap-4">
+          {!hasEducationContent && (
+            <div className="rounded-3xl border border-border bg-surface p-8 text-center">
+              <h2 className="text-lg font-semibold">
+                Education and certificates will be added soon.
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                This section is ready for verified education, certificates, and
+                learning items from Supabase. No placeholder credentials are
+                shown.
+              </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                <Link
+                  to="/projects"
+                  className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+                >
+                  View Projects
+                </Link>
+                <Link
+                  to="/contact"
+                  className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+                >
+                  Work With Me
+                </Link>
+              </div>
+            </div>
+          )}
           
           {/* Academic Header */}
           {academicCells.length > 0 && (

@@ -14,7 +14,7 @@ const Experience = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const { data: experiences, isLoading } = useExperiences();
   const description =
-    "Professional experience in data analytics, marketing analytics, business intelligence, dashboards, KPI reports, and data-driven insights.";
+    "Ayoub Ben Yahia's experience page for Junior Data Analyst / BI Analyst work focused on Marketing Analytics, business intelligence, dashboards, KPI reporting, and data-driven insights.";
 
   if (isLoading) {
     return (
@@ -37,12 +37,12 @@ const Experience = () => {
   return (
     <Layout>
       <SEO
-        title="Work Experience - Data & Marketing Analytics"
+        title="Experience - Junior Data Analyst / BI Analyst"
         description={description}
         canonical={absoluteUrl("/experience")}
         structuredData={[
           createWebPageSchema({
-            title: "Work Experience - Data & Marketing Analytics",
+            title: "Experience - Junior Data Analyst / BI Analyst",
             description,
             path: "/experience",
           }),
@@ -87,6 +87,32 @@ const Experience = () => {
         </motion.header>
 
         <div className="mx-auto mt-12 flex max-w-4xl flex-col gap-4">
+          {(!experiences || experiences.length === 0) && (
+            <div className="rounded-3xl border border-border bg-surface p-8 text-center">
+              <h2 className="text-lg font-semibold">
+                Experience details will be added soon.
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                This section is ready for verified work experience from
+                Supabase. No placeholder roles are shown.
+              </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                <Link
+                  to="/projects"
+                  className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
+                >
+                  View Projects
+                </Link>
+                <Link
+                  to="/contact"
+                  className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-glow"
+                >
+                  Work With Me
+                </Link>
+              </div>
+            </div>
+          )}
+
           {experiences?.map((exp, idx) => {
             const isOpen = openIndex === idx;
             return (

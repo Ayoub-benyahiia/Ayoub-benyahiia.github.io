@@ -21,7 +21,7 @@ const Insights = () => {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const description =
-    "Practical insights, guides, and use cases on data analytics, marketing analytics, dashboards, reporting, KPI tracking, and better business decisions.";
+    "Practical insights from Ayoub Ben Yahia on Marketing Analytics, BI dashboards, SQL, Power BI, Excel, Python, KPI reporting, and better business decisions.";
   const canonical = location.pathname.startsWith("/blog")
     ? absoluteUrl("/insights")
     : absoluteUrl("/insights");
@@ -64,22 +64,22 @@ const Insights = () => {
     return (
       <Layout>
       <SEO
-        title="Data Analytics Insights, Dashboard Guides & Marketing Analytics"
+        title="Marketing Analytics & BI Insights"
         description={description}
         canonical={canonical}
         structuredData={[
           createBlogSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
           createCollectionPageSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
           createWebPageSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
@@ -111,22 +111,22 @@ const Insights = () => {
   return (
     <Layout>
       <SEO
-        title="Data Analytics Insights, Dashboard Guides & Marketing Analytics"
+        title="Marketing Analytics & BI Insights"
         description={description}
         canonical={canonical}
         structuredData={[
           createBlogSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
           createCollectionPageSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
           createWebPageSchema({
-            title: "Data Analytics Insights, Dashboard Guides & Marketing Analytics",
+            title: "Marketing Analytics & BI Insights",
             description,
             path: "/insights",
           }),
@@ -179,8 +179,12 @@ const Insights = () => {
         {/* Search */}
         <div className="mx-auto mt-10 max-w-xl">
           <div className="relative">
+            <label htmlFor="insights-search" className="sr-only">
+              Search insights
+            </label>
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
+              id="insights-search"
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -239,7 +243,7 @@ const Insights = () => {
               No insights yet. Check back soon.
             </p>
             <p className="text-sm text-muted-foreground/70">
-              Insights on engineering, automation, and data systems are on the way.
+              Insights on dashboards, analytics, reporting, and marketing performance are on the way.
             </p>
           </motion.div>
         ) : (
