@@ -13,7 +13,6 @@ const NotFound = () => {
         noIndex
       />
       <section className="container flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
-        {/* Decorative number */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -46,7 +45,6 @@ const NotFound = () => {
           </p>
         </motion.div>
 
-        {/* Action buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +77,6 @@ const NotFound = () => {
           </Link>
         </motion.div>
 
-        {/* Quick nav hint */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -87,14 +84,10 @@ const NotFound = () => {
           className="mt-10 text-xs text-muted-foreground/50"
         >
           Or try:{" "}
-          <Link to="/services" className="transition hover:text-accent">
-            Services
-          </Link>
-          {" · "}
           <Link to="/insights" className="transition hover:text-accent">
             Insights
           </Link>
-          {" · "}
+          {" / "}
           <Link to="/experience" className="transition hover:text-accent">
             Experience
           </Link>

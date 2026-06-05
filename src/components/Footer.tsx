@@ -32,21 +32,12 @@ const AVAILABILITY =
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
   { label: "Experience", href: "/experience" },
   { label: "Education", href: "/education" },
   { label: "Activities", href: "/activities" },
-];
-
-const SERVICE_LINKS = [
-  { label: "Data Analytics", href: "/services#data-analytics" },
-  { label: "Dashboard Creation", href: "/services#dashboard-creation" },
-  { label: "Marketing Analytics", href: "/services#marketing-analytics" },
-  { label: "Reporting Automation", href: "/services#reporting-automation" },
-  { label: "SEO & Content Analytics", href: "/services#seo-content-analytics" },
 ];
 
 export const Footer = () => {
@@ -81,11 +72,11 @@ export const Footer = () => {
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
-              to="/services"
-              id="footer-cta-view-services"
+              to="/projects"
+              id="footer-cta-view-projects"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
             >
-              View Services
+              View Projects
             </Link>
           </div>
         </div>
@@ -155,7 +146,7 @@ export const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Column 3 — Services + Contact */}
+          {/* Column 3 — Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -163,19 +154,6 @@ export const Footer = () => {
             viewport={{ once: true }}
           >
             <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-              Services
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              {SERVICE_LINKS.map((s) => (
-                <li key={s.label}>
-                  <Link to={s.href} className="transition hover:text-accent">
-                    {s.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="mt-8 text-sm font-semibold uppercase tracking-wider text-accent">
               Contact
             </h3>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
@@ -245,9 +223,6 @@ export const Footer = () => {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/contact" className="transition hover:text-accent">
               Work With Me
-            </Link>
-            <Link to="/services" className="transition hover:text-accent">
-              Services
             </Link>
             <Link to="/projects" className="transition hover:text-accent">
               Projects

@@ -54,6 +54,10 @@ const InsightsPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const location = useLocation();
   const { data: post, isLoading, isError } = useBlogPost(slug ?? "");
+  const tableOfContents = useMemo(
+    () => extractHeadings(post?.content),
+    [post?.content]
+  );
 
   if (isLoading) {
     return (
@@ -94,7 +98,6 @@ const InsightsPost = () => {
   const description =
     post.excerpt ??
     `Read the full insight: ${post.title}. Data analytics, dashboards, and business intelligence explained clearly.`;
-  const tableOfContents = useMemo(() => extractHeadings(post.content), [post.content]);
 
   return (
     <Layout>
@@ -271,12 +274,6 @@ const InsightsPost = () => {
             <ArticleCTA />
 
             <div className="flex flex-wrap gap-3 text-sm">
-              <Link
-                to="/services"
-                className="rounded-full border border-border bg-surface px-4 py-2 text-muted-foreground transition hover:border-accent hover:text-accent"
-              >
-                View Services
-              </Link>
               <Link
                 to="/projects"
                 className="rounded-full border border-border bg-surface px-4 py-2 text-muted-foreground transition hover:border-accent hover:text-accent"

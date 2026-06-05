@@ -7,7 +7,6 @@ import { absoluteUrl, DEFAULT_DESCRIPTION } from "@/lib/seo";
 import {
   createBreadcrumbSchema,
   createPersonSchema,
-  createProfessionalServiceSchema,
   createWebPageSchema,
   createWebsiteSchema,
 } from "@/lib/schema";
@@ -25,7 +24,6 @@ const Index = () => {
         structuredData={[
           createPersonSchema(),
           createWebsiteSchema(),
-          createProfessionalServiceSchema({ url: absoluteUrl("/") }),
           createWebPageSchema({
             title: "Junior Data Analyst / BI Analyst Portfolio",
             description: DEFAULT_DESCRIPTION,

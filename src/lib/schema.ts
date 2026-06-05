@@ -64,7 +64,7 @@ export const createProfessionalServiceSchema = (options?: {
     "@id": `${SITE_URL}/#professional-service`,
     name: `${OWNER_NAME} - ${JOB_TITLE}`,
     description: DEFAULT_DESCRIPTION,
-    url: options?.url ?? absoluteUrl("/services"),
+    url: options?.url ?? absoluteUrl("/"),
     areaServed: ["Morocco", "International remote"],
     provider: {
       "@id": `${SITE_URL}/#person`,
@@ -214,7 +214,7 @@ export const createServiceSchema = (options: {
     "@type": "Service",
     name: options.title,
     description: options.description,
-    url: absoluteUrl(options.path ?? "/services"),
+    url: absoluteUrl(options.path ?? "/projects"),
     provider: {
       "@id": `${SITE_URL}/#person`,
     },

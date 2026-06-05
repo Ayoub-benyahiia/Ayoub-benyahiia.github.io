@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index.tsx";
 
 const Projects = lazy(() => import("./pages/Projects.tsx"));
@@ -12,7 +13,6 @@ const Education = lazy(() => import("./pages/Education.tsx"));
 const Activities = lazy(() => import("./pages/Activities.tsx"));
 const Insights = lazy(() => import("./pages/Blog.tsx"));
 const InsightsPost = lazy(() => import("./pages/BlogPost.tsx"));
-const Services = lazy(() => import("./pages/Services.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
@@ -35,23 +35,24 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Suspense fallback={<RouteLoadingFallback />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/activities" element={<Activities />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/insights/:slug" element={<InsightsPost />} />
-            {/* Legacy redirects - keep old /blog URLs working */}
-            <Route path="/blog" element={<Insights />} />
-            <Route path="/blog/:slug" element={<InsightsPost />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/experience" element={<Experience />} />
+              <Route path="/education" element={<Education />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/insights" element={<Insights />} />
+              <Route path="/insights/:slug" element={<InsightsPost />} />
+              {/* Legacy redirects - keep old /blog URLs working */}
+              <Route path="/blog" element={<Insights />} />
+              <Route path="/blog/:slug" element={<InsightsPost />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

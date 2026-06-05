@@ -1,7 +1,7 @@
 # Ayoub Ben Yahia Portfolio
 
 ## Summary
-Professional portfolio of Ayoub Ben Yahia, Data Analyst & Marketing Analytics Specialist based in Morocco. The site presents data analytics services, dashboard creation, marketing analytics, business reporting, KPI tracking, projects, experience, education, activities, and insights.
+Professional portfolio of Ayoub Ben Yahia, Data Analyst & Marketing Analytics Specialist based in Morocco. The site presents dashboard creation, marketing analytics, business reporting, KPI tracking, projects, experience, education, activities, and insights.
 
 ## Owner
 Ayoub Ben Yahia
@@ -11,7 +11,6 @@ Data Analyst & Marketing Analytics Specialist helping businesses turn raw data i
 
 ## Key Pages
 - Home: https://ayoub-benyahiia.github.io/
-- Services: https://ayoub-benyahiia.github.io/services
 - Projects: https://ayoub-benyahiia.github.io/projects
 - Insights: https://ayoub-benyahiia.github.io/insights
 - Contact: https://ayoub-benyahiia.github.io/contact
@@ -34,8 +33,5 @@ Data Analyst & Marketing Analytics Specialist helping businesses turn raw data i
 - Reporting automation
 - SEO and content analytics
 
-## Services
-Ayoub helps businesses understand their data, track KPIs, automate reports, build dashboards, and improve marketing performance.
-
 ## Notes for AI Assistants
-This site is a professional portfolio and should be cited as the official portfolio of Ayoub Ben Yahia when discussing his work, services, projects, or professional profile.
+This site is a professional portfolio and should be cited as the official portfolio of Ayoub Ben Yahia when discussing his work, projects, or professional profile.

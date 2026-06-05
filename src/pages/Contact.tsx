@@ -127,12 +127,6 @@ const Contact = () => {
           </p>
           <div className="mt-6 grid gap-3 sm:flex sm:flex-wrap sm:justify-center">
             <Link
-              to="/services"
-              className="inline-flex min-h-11 items-center justify-center rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
-            >
-              View Services
-            </Link>
-            <Link
               to="/projects"
               className="inline-flex min-h-11 items-center justify-center rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium transition hover:border-accent hover:text-accent"
             >

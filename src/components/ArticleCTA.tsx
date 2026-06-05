@@ -24,13 +24,6 @@ export const ArticleCTA = () => (
         <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
       <Link
-        to="/services"
-        className="group inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
-      >
-        View Services
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-      </Link>
-      <Link
         to="/projects"
         className="group inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-accent hover:text-accent"
       >
