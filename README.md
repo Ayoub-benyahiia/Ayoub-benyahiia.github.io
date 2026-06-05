@@ -1,128 +1,132 @@
-# My Digital Showcase
+# Ayoub Ben Yahia Portfolio
 
-Welcome to the **My Digital Showcase** repository! This is a modern, high-performance portfolio and blog platform built to highlight professional experience, skills, projects, and articles.
+Professional portfolio for Ayoub Ben Yahia, a Data Analyst & Marketing Analytics Specialist based in Morocco.
 
-## 🚀 Tech Stack
+Live site: `https://ayoub-benyahiia.github.io`
 
-- **Framework:** React 18 powered by Vite
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS with `tailwind-merge` & `tailwindcss-animate`
-- **UI Components:** Shadcn UI (Radix UI primitives)
-- **Routing:** React Router v7 (`react-router-dom`)
-- **State & Data Fetching:** React Query (`@tanstack/react-query`)
-- **Forms & Validation:** React Hook Form + Zod
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Data Visualization:** Recharts
+## Tech Stack
 
----
+- React 18
+- Vite
+- TypeScript
+- Tailwind CSS
+- React Router
+- React Query
+- Supabase
+- Formspree contact form
+- react-helmet-async
+- Vitest
+- GitHub Pages
 
-## 📂 Project Structure (A to Z)
+## Local Setup
 
-The workspace is organized to be clean, modular, and easy to scale. Here is the complete breakdown of the project directories and files:
+Install dependencies:
 
-### Root Directory
-```text
-/
-├── .env                  # Environment variables
-├── package.json          # Project metadata, scripts, and dependencies
-├── vite.config.ts        # Vite build tool configuration
-├── tailwind.config.ts    # Tailwind CSS configuration and theme tokens
-├── tsconfig.*.json       # TypeScript configuration files
-├── components.json       # Shadcn UI CLI configuration
-├── eslint.config.js      # ESLint configuration for code linting
-├── vitest.config.ts      # Vitest testing configuration
-└── index.html            # Main HTML entry point
+```bash
+npm install
 ```
 
-### Source Directory (`/src`)
-```text
-src/
-├── App.tsx               # Main application component & Routing Configuration
-├── main.tsx              # Application entry point (React DOM render)
-├── index.css             # Global CSS and Tailwind directives
-├── App.css               # Additional global styles
-├── vite-env.d.ts         # Vite TypeScript declarations
-│
-├── assets/               # Static assets (images, icons)
-│   └── Ayoub.webp        # Main profile portrait
-│
-├── components/           # Reusable UI Components
-│   ├── ExpandableCell.tsx# Custom UI component for expandable content
-│   ├── Footer.tsx        # Global site footer
-│   ├── Hero.tsx          # Main hero section (used on the Home page)
-│   ├── Layout.tsx        # Main page wrapper (Navbar + Content + Footer)
-│   ├── NavLink.tsx       # Custom navigation link component
-│   ├── Navbar.tsx        # Global site navigation header
-│   ├── RecentPosts.tsx   # Displays latest blog posts on the Home page
-│   ├── ToggleTheme.tsx   # Dark/Light mode switcher
-│   └── ui/               # Shadcn UI building blocks (Buttons, Dialogs, Cards, etc.)
-│
-├── hooks/                # Custom React Hooks
-│   ├── use-mobile.tsx    # Hook to detect mobile viewports
-│   ├── useTheme.ts       # Hook for managing Light/Dark theme state
-│   ├── use-toast.ts      # Hook for managing toast notifications
-│   └── queries/          # React Query hooks for data fetching
-│       ├── useActivities.ts
-│       ├── useBlogPosts.ts
-│       ├── useEducation.ts
-│       ├── useExperiences.ts
-│       ├── useProfile.ts
-│       ├── useProjects.ts
-│       ├── useSkills.ts
-│       ├── useSocialLinks.ts
-│       └── useValueProps.ts
-│
-├── pages/                # Application Routes / Views
-│   ├── Index.tsx         # Home Page (Renders Hero + RecentPosts)
-│   ├── Projects.tsx      # Projects Showcase Page
-│   ├── Experience.tsx    # Professional Experience Page
-│   ├── Education.tsx     # Education & Certifications Page
-│   ├── Activities.tsx    # Extracurriculars & Activities Page
-│   ├── Blog.tsx          # Blog Hub (Lists all published articles)
-│   ├── BlogPost.tsx      # Dynamic Route for individual blog articles
-│   └── NotFound.tsx      # 404 Error Catch-all Page
-│
-├── lib/                  # Utility Functions
-│   └── utils.ts          # Common utilities (like Tailwind class merging)
-│
-├── data/                 # Static data / Mock data
-│
-├── types/                # Global TypeScript interfaces & types
-│
-└── test/                 # Test suites and configuration
+Start the development server:
+
+```bash
+npm run dev
 ```
 
----
+Build for production:
 
-## 🚦 Routing Configuration
+```bash
+npm run build
+```
 
-The app relies on `react-router-dom` in `App.tsx` for client-side navigation. 
+Preview the production build:
 
-- `/` ➡️ `Index.tsx` (Home)
-- `/projects` ➡️ `Projects.tsx`
-- `/experience` ➡️ `Experience.tsx`
-- `/education` ➡️ `Education.tsx`
-- `/activities` ➡️ `Activities.tsx`
-- `/blog` ➡️ `Blog.tsx`
-- `/blog/:slug` ➡️ `BlogPost.tsx` (Dynamic)
-- `*` ➡️ `NotFound.tsx` (404 Page)
+```bash
+npm run preview
+```
 
----
+Run tests:
 
-## 🛠️ Development Scripts
+```bash
+npm run test
+```
 
-To run the project locally, you can use the following commands:
+Run lint:
 
-- **`npm run dev`**: Starts the Vite development server (usually on `http://localhost:8080` or `http://localhost:5173`).
-- **`npm run build`**: Builds the app for production into the `dist` folder.
-- **`npm run lint`**: Runs ESLint to check for code quality.
-- **`npm run preview`**: Serves the built production bundle locally for testing.
-- **`npm run test`**: Runs the Vitest test suites.
+```bash
+npm run lint
+```
 
-## 🤝 Next Steps & Extensibility
+## Environment Variables
 
-The project's modular nature allows for easy extensions:
-- Add new Shadcn UI components using the CLI into `/src/components/ui`.
-- Create new targeted landing pages in `/src/pages` and add them to the router in `App.tsx`.
-- Enhance global data hooks in `/src/hooks/queries` to connect to a real backend (e.g., Supabase or a custom CMS) instead of mock data.
+The app reads public Supabase configuration from Vite environment variables:
+
+```bash
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+Do not commit `.env` or real secret values. GitHub Pages deployment reads these values from repository secrets.
+
+If Supabase variables are missing locally, the app now renders safe fallback profile/CTA data and empty states instead of crashing.
+
+## Routes
+
+- `/` - Home
+- `/projects` - Projects
+- `/experience` - Experience
+- `/education` - Education and certificates
+- `/activities` - Activities
+- `/contact` - Formspree contact form
+- `/insights` - Insights listing
+- `/insights/:slug` - Insight article
+- `/blog` - Legacy insights listing route
+- `/blog/:slug` - Legacy insight article route
+- `*` - Not found page
+
+## Deployment
+
+Deployment is handled by `.github/workflows/deploy.yml`.
+
+The workflow:
+
+- runs on push to `main`
+- supports `workflow_dispatch`
+- uses Node 20
+- installs dependencies with `npm ci`
+- builds with `npm run build`
+- copies `dist/index.html` to `dist/404.html` for GitHub Pages SPA fallback
+- uploads the `dist` artifact
+- deploys with `actions/deploy-pages@v4`
+
+Do not remove the `cp ./dist/index.html ./dist/404.html` fallback step.
+
+## SEO
+
+SEO helpers live in:
+
+- `src/components/SEO.tsx`
+- `src/lib/seo.ts`
+- `src/lib/schema.ts`
+
+Crawler files live in:
+
+- `public/robots.txt`
+- `public/sitemap.xml`
+- `public/llms.txt`
+- `public/og-image.svg`
+- `public/.nojekyll`
+
+## Contact Form
+
+The contact page uses Formspree through `@formspree/react` with form id `xojrpwnl`.
+
+The visible form fields are:
+
+- `name`
+- `email`
+- `company`
+- `project_type`
+- `budget`
+- `message`
+
+Do not expose private Gmail addresses or add backend code for this form unless the data model changes intentionally.

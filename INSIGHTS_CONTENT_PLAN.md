@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-Insights should support SEO and conversion for Ayoub Ben Yahia's portfolio by publishing practical, useful articles around data analytics, dashboard creation, marketing analytics, reporting automation, KPI tracking, and Power BI. Each article should help a reader understand a real business problem, then guide them toward Services, Projects, or Contact when they need implementation help.
+Insights should support SEO and portfolio credibility for Ayoub Ben Yahia by publishing practical, useful articles around data analytics, dashboard creation, marketing analytics, reporting automation, KPI tracking, and Power BI. Each article should help a reader understand a real business problem, then guide them toward Projects, Insights, or Contact when they need implementation help.
 
 ## 2. Target Topics
 
@@ -34,17 +34,17 @@ Focus on freelance analytics workflows, working with businesses in Morocco, remo
 
 | Title | Target keyword | Intent | Suggested internal links | CTA | Medium cross-post |
 | --- | --- | --- | --- | --- | --- |
-| How to Build a KPI Dashboard in Power BI | KPI dashboard Power BI | Learn how to plan and structure a KPI dashboard | Services, Projects, Contact | Work With Me | Yes |
-| Power BI vs Excel for Business Reporting | Power BI vs Excel reporting | Compare tools before choosing a reporting setup | Services, Projects | View Services | Yes |
-| Marketing Analytics Dashboard: What to Track | marketing analytics dashboard | Understand which metrics belong in a marketing dashboard | Services, Contact | Work With Me | Yes |
-| Reporting Automation with SQL and Looker Studio | reporting automation SQL Looker Studio | Learn a workflow for recurring reports | Services, Projects, Contact | Work With Me | Yes |
-| Data Analytics for Small Businesses in Morocco | data analytics small businesses Morocco | Discover practical analytics use cases for local businesses | Services, Contact | Work With Me | Yes |
+| How to Build a KPI Dashboard in Power BI | KPI dashboard Power BI | Learn how to plan and structure a KPI dashboard | Projects, Insights, Contact | Work With Me | Yes |
+| Power BI vs Excel for Business Reporting | Power BI vs Excel reporting | Compare tools before choosing a reporting setup | Projects, Insights | View Projects | Yes |
+| Marketing Analytics Dashboard: What to Track | marketing analytics dashboard | Understand which metrics belong in a marketing dashboard | Projects, Contact | Work With Me | Yes |
+| Reporting Automation with SQL and Looker Studio | reporting automation SQL Looker Studio | Learn a workflow for recurring reports | Projects, Insights, Contact | Work With Me | Yes |
+| Data Analytics for Small Businesses in Morocco | data analytics small businesses Morocco | Discover practical analytics use cases for local businesses | Projects, Contact | Work With Me | Yes |
 | What to Include in a Data Analyst Portfolio | data analyst portfolio | Help aspiring analysts structure a credible portfolio | Projects, Insights | View Projects | Yes |
-| How to Track Content Performance with Google Analytics | content performance Google Analytics | Learn content analytics basics and reporting ideas | Services, Insights, Contact | Work With Me | Yes |
-| Common Dashboard Design Mistakes | dashboard design mistakes | Avoid unclear dashboard layouts and weak KPI design | Services, Projects | View Projects | Yes |
-| How to Prepare Data Before Building a Dashboard | prepare data before dashboard | Understand data cleaning and structure before visualization | Services, Contact | Work With Me | Yes |
-| Freelance Data Analyst Workflow: From Brief to Delivery | freelance data analyst workflow | Explain how a freelance analytics project runs | Services, Projects, Contact | Work With Me | Yes |
-| KPI Tracking for Marketing Campaigns | marketing campaign KPI tracking | Choose campaign KPIs and reporting cadence | Services, Contact | Work With Me | Yes |
+| How to Track Content Performance with Google Analytics | content performance Google Analytics | Learn content analytics basics and reporting ideas | Insights, Projects, Contact | Work With Me | Yes |
+| Common Dashboard Design Mistakes | dashboard design mistakes | Avoid unclear dashboard layouts and weak KPI design | Projects, Insights | View Projects | Yes |
+| How to Prepare Data Before Building a Dashboard | prepare data before dashboard | Understand data cleaning and structure before visualization | Projects, Contact | Work With Me | Yes |
+| Freelance Data Analyst Workflow: From Brief to Delivery | freelance data analyst workflow | Explain how a freelance analytics project runs | Projects, Contact | Work With Me | Yes |
+| KPI Tracking for Marketing Campaigns | marketing campaign KPI tracking | Choose campaign KPIs and reporting cadence | Projects, Contact | Work With Me | Yes |
 | Case Study Template for Analytics Projects | analytics case study template | Structure future portfolio case studies without fake metrics | Projects, Insights | View Projects | Yes |
 
 ## 5. Article Template
@@ -63,7 +63,6 @@ Use this structure for future articles:
 
 Recommended internal links:
 
-- Services: `/services`
 - Projects: `/projects`
 - Contact: `/contact`
 - Insights: `/insights`
@@ -74,5 +73,5 @@ Recommended internal links:
 - Cross-post to Medium later after the portfolio URL is live.
 - Use Medium's canonical link feature if available.
 - Include one branded link back to the portfolio.
-- Avoid spammy anchor text; use natural anchors such as "Ayoub Ben Yahia's portfolio", "data analytics services", or "related dashboard projects".
+- Avoid spammy anchor text; use natural anchors such as "Ayoub Ben Yahia's portfolio", "data analytics projects", or "related dashboard projects".
 - Do not invent client names, testimonials, metrics, revenue impact, or case study outcomes.
