@@ -24,7 +24,9 @@ const FALLBACK_LOCATION = "Morocco";
 export const Hero = () => {
   const { data: profile, isLoading: pL } = useProfile();
   const { data: valueProps, isLoading: vL } = useValueProps();
-  const { data: socialLinks, isLoading: sL } = useSocialLinks("primary");
+  const { data: socialLinks, isLoading: sL } = useSocialLinks("primary", {
+    publicOnly: true,
+  });
   const { data: skills, isLoading: kL } = useSkills();
 
   const isLoading = pL || vL || sL || kL;

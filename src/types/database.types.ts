@@ -11,9 +11,11 @@ export interface DbProfile {
   pitch: string | null;
   bio: string | null;
   location: string | null;
-  email: string | null;
-  phone: string | null;
-  avatar_url: string | null;
+  email?: string | null;
+  public_email?: string | null;
+  phone?: string | null;
+  avatar_url?: string | null;
+  cv_url?: string | null;
   updated_at: string;
 }
 
@@ -31,6 +33,7 @@ export interface DbSocialLink {
   icon: string;
   tier: "primary" | "secondary";
   sort_order: number;
+  is_visible?: boolean;
 }
 
 export interface DbSkill {

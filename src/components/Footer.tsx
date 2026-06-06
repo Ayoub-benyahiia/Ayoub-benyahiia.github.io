@@ -42,7 +42,9 @@ const NAV_LINKS = [
 
 export const Footer = () => {
   const { data: profile } = useProfile();
-  const { data: socialLinks } = useSocialLinks();
+  const { data: socialLinks } = useSocialLinks(undefined, {
+    publicOnly: true,
+  });
 
   const publicSocialLinks =
     socialLinks?.filter((social) => !social.href.startsWith("mailto:")) ?? [];
